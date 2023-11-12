@@ -3,12 +3,16 @@ import colors from 'tailwindcss/colors';
 import defaultTheme from 'tailwindcss/defaultTheme';
 
 const myConfig = {
-  content: ['./pages/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
   theme: {
     extend: {
       fontFamily: {
         sans: [...defaultTheme.fontFamily.sans],
-        display: ['var(--font-calsans)'],
+        display: ['CalSans-SemiBold'],
         subtitle: ['IBM Plex Mono'],
       },
       animation: {
@@ -38,9 +42,6 @@ const myConfig = {
           '30%': {
             transform: 'translateX(0%)',
             opacity: '100%',
-          },
-          '100%': {
-            opacity: '0%',
           },
         },
         'fade-right': {
@@ -78,23 +79,8 @@ const myConfig = {
         },
       },
     },
-    // colors: {
-    //     gray: colors.gray,
-    //     black: '#010202',
-    //     neutral: {
-    //         50: '#F7F7F7',
-    //         100: '#E1E1E1',
-    //         200: '#CFCFCF',
-    //         300: '#B1B1B1',
-    //         400: '#9E9E9E',
-    //         500: '#7E7E7E',
-    //         600: '#626262',
-    //         700: '#515151',
-    //         800: '#3B3B3B',
-    //         900: '#222222',
-    //     },
-    // }
   },
+  plugins: [require('@tailwindcss/typography')],
 };
 
 export default myConfig;
