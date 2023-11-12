@@ -30,7 +30,6 @@ export const generateMetadata = async ({
   // ? `https://leerob.io${image}`
   // : `https://leerob.io/og?title=${title}`;
 
-  console.log(title);
   return {
     title,
     description,
