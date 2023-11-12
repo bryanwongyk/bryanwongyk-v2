@@ -99,11 +99,11 @@ const Blog: FC<BlogProps> = ({ params }) => {
           __html: JSON.stringify(post.structuredData),
         }}
       />
-      <h1 className='mb-4 text-4xl font-semibold tracking-tighter'>
+      <h1 className='mb-5 text-4xl font-semibold tracking-tighter'>
         {post.title}
       </h1>
-      <div className='mb-6 flex max-w-[650px] items-center justify-between text-sm'>
-        <p className='text-sm text-neutral-400'>
+      <div className='mb-4 flex max-w-[650px] items-center justify-between text-sm'>
+        <p className='font-subtitle text-sm text-neutral-400'>
           {formatDate(post.publishedAt)}
         </p>
       </div>

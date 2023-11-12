@@ -41,7 +41,7 @@ export default function Home() {
     <main className='relative min-h-full bg-white'>
       <div className='flex h-screen w-screen flex-col items-center justify-center overflow-hidden via-zinc-600/20'>
         <div>
-          <h1 className='text-edge-outline z-10 animate-fade-left cursor-default whitespace-nowrap bg-clip-text font-display text-4xl duration-1000 sm:text-6xl md:text-9xl'>
+          <h1 className='text-edge-outline z-10 animate-fade-in cursor-default whitespace-nowrap bg-clip-text font-display text-4xl duration-1000 sm:text-6xl md:text-9xl'>
             BRYAN
           </h1>
           <div className='my-8 animate-fade-in'>
@@ -75,10 +75,7 @@ export default function Home() {
       {/*        bryan wong*/}
       {/*    </h1>*/}
       {/*</div>*/}
-      {/*<Particles*/}
-      {/*    className="absolute inset-0 animate-fade-in"*/}
-      {/*    quantity={100}*/}
-      {/*/>*/}
+      {/*<Particles className='absolute inset-0 animate-fade-in' quantity={100} />*/}
     </main>
   );
 }

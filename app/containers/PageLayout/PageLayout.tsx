@@ -5,7 +5,9 @@ const PageLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main>
       <NavBar />
-      <div className='mx-auto max-w-2xl'>{children}</div>
+      <div className='mx-auto min-h-[calc(100vh-20vh)] max-w-2xl'>
+        {children}
+      </div>
       <Footer />
     </main>
   );
