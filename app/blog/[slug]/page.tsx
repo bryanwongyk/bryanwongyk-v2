@@ -65,7 +65,6 @@ const Views = async ({ slug }: { slug: string }) => {
 
 const Blog: FC<BlogProps> = ({ params }) => {
   const post = allBlogs.find((post) => post.slug === params.slug);
-  console.log('rendered once', post);
   if (!post) {
     notFound();
   }

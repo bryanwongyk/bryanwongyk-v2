@@ -16,7 +16,6 @@ class PostViewsRepository {
     const { data, error } = await this.supabase
       .from(postViewsSchema.TABLE)
       .select(`${postViewsSchema.SLUG}, ${postViewsSchema.VIEWS_COUNT}`);
-    console.log(data);
     if (error) {
       console.error(error);
     }
