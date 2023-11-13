@@ -39,6 +39,17 @@ body,
     sans-serif;
 }
 
+:root {
+  --highlight-color: #F9DA8B;
+}
+
+::selection {
+  background: var(--highlight-color); /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: var(--highlight-color); /* Gecko Browsers */
+}
+
 a {
   color: inherit;
   text-decoration: none;

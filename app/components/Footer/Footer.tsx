@@ -22,7 +22,11 @@ const Footer = () => {
                   {item.name}
                 </Link>
               ) : (
-                <a href={item.href} className='text-md text-zinc-500'>
+                <a
+                  href={item.href}
+                  target='_blank'
+                  className='text-md text-zinc-500'
+                >
                   {item.name}
                 </a>
               );

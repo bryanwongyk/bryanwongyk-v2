@@ -7,12 +7,12 @@ I decided to give 'The Pragmatic Programmer: From Journeyman to Master' (by Andr
 I liked that it was focused on general 'career development' as opposed to being a technical book. The author uses a lot of analogies and real-world metaphors to help drive the lessons home.
 I've condensed my key take-aways below as a cheat-sheet for you.
 
-# A Career Mindset
+## A Career Mindset
 - Take responsibility for outcomes. When you make a mistake (as we all do) or an error in judgement, admit it honestly and try to offer options.
 - Invest in your knowledge portfolio. Your biggest asset is your knowledge. Its an expiring asset which goes out of date with new technological advancements.
 - Don’t shirk from responsibility. Rejoice in accepting challenges and making our expertise well known. We do a job we can be proud of.
 
-# The Art of Effective Communication
+## The Art of Effective Communication
 The best ideas are sterile unless you can communicate it with other people.
 - Know what you want to say. Write an outline, evaluate whether it conveys what you want to say, and refine it iteratively.
 - Know your audience. Understand their needs, interests, and capabilities.
@@ -32,22 +32,22 @@ For documentation:
 - Put a date stamp or version number if necessary so reader knows what is up to date. Documentation can become out of date as soon as its printed.
 - Create and maintain a project glossary that defines all the specific terms and jargon used in a project.
 
-# Pragmatic Programming
-## Broken Window Theory
+## Pragmatic Programming
+### Broken Window Theory
 Picture a public building. All it takes is a single broken window to initiate a decline welcoming further damage, disorder and apathy towards it.
 
 Similarly, we need to prevent software rot by not leaving “broken windows” (bad designs, wrong decisions, or poor code). Fix it, document it, or leave a comment in the code.
 
 We also need to instil this as part of team culture. Even the most diligent developer can lose enthusiasm to maintain code quality if the rest of the team is apathetic towards it.
 
-## Don’t Repeat Yourself (DRY)
+### Don’t Repeat Yourself (DRY)
 - Anything expressed in multiple places must be maintained in multiple places.
 - Write self-documenting code and minimise comments.
 	- Every change in code requires an accompanying change in the comments.
 	- Bad code requires lots of comments.
 	- Reserve comments for higher level explanations discussing why something is done. The code should already show how it is done.
 
-## Build Orthoganal Systems
+### Build Orthoganal Systems
 - Design components that are independent with a single, well-defined purpose.
 	- Increases productivity - promotes reusable components, localized changes reduce development and testing time, easily extensible codebase.
 	- Reduces risk - diseased sections of code are isolated, likely to be better tested.
@@ -60,11 +60,11 @@ We also need to instil this as part of team culture. Even the most diligent deve
 - Use events to communicate between independent modules.
 - Minimise coupling between event streams.
 
-## Handling System Errors
+### Handling System Errors
 - If something can’t happen, use assertions to ensure that it won’t. Don’t use assertions in place of real error handling. Assertions just check for things that shouldn’t happen.
 - Use exceptions for exceptional problems.
 
-## Testing
+### Testing
 - Design your software by contract and write tests to ensure a given unit honours its contract.
 	- A correct program is one that does no more and no less than it claims to do. You need to understand the preconditions, post conditions and class invariants.
 	- We want to validate that the code meets its contract and the contract means what we think it means.
@@ -73,13 +73,13 @@ We also need to instil this as part of team culture. Even the most diligent deve
 - Be driven to find bugs now so we don’t encounter them later. We don’t want to be a developer who tests gently and is subconsciously avoiding weak spots.
 - If a bug occurs, you need to add a new test to trap it next time. It should be the last time you see this bug again.
 
-## Design for Concurrency
+### Design for Concurrency
 Once your architecture handles concurrency, it makes it easier to be flexible with scaling the application or meeting performance requirements when the time comes.
 - Design your software by contract so that there are no surprises.
 - Avoid maintaining implicit state between calls. Your code must be thread-safe and present a consistent state.
 - Minimise use of global variables.
 
-## Always Be Critical Of Your Code
+### Always Be Critical Of Your Code
 - It is easy to start going on autopilot during implementation. Constantly review what you are writing and check for potential problems.
 - Avoid programming by coincidence - relying on luck and accidental successes - in favour of programming deliberately. Sometimes you don’t know why your code works. You end up relying on undocumented error or boundary conditions and a real issue is bound to occur.
 - Don’t rely on wizard code that you don’t understand e.g. external libraries.
@@ -88,20 +88,20 @@ Once your architecture handles concurrency, it makes it easier to be flexible wi
 - Variable names should be meaningful and not misleading.
 - Shortcuts make for long delays. You may save a few seconds now but at the potential loss of hours later for refactoring.
 
-## Approaching Debugging
+### Approaching Debugging
 - Fix the problem, don’t blame anyone and don’t panic.
 - Resist the short-term urge to fix just the symptoms you see. It is more likely the actual fault may be several steps removed from what you are observing.
 - A useful mindset is understanding that it is much more likely for a bug to be caused by the application code rather than the underlying system or library used. So assess the code first to either fix the problem or eliminate it as the root cause.
 - Don’t gloss over a piece of code involved in the bug because you “know” it works. Prove it, document it, and test it.
 
-## Approaching Refactoring
+### Approaching Refactoring
 - Refactor early, refactor often. Think of code that needs refactoring as a growth. You can take it out now while its small or you could wait while it grows and spreads.
 - Keep track of things that need to be refactored. If you can’t refactor something immediately, make sure that it gets placed on the schedule.
 - Don’t refactor and add functionality at the same time.
 - Make sure you have good tests before you begin refactoring to know if you have broken anything.
 - Take short, deliberate steps rather than changing significant portions at a time.
 
-## The Art of Managing Requirements
+### The Art of Managing Requirements
 - Create ‘good enough’ software for your users, future maintainers, and your own peace of mind. You need to know when to stop over-engineering just as an artist needs to know when a painting is finished.
 	- Have conversations with your users/stakeholders to clarify what ‘good enough’ means. The scope and quality of the system should be documented as part of its requirements.
 - Always remember the bigger picture of why you are doing something.
@@ -118,7 +118,7 @@ Once your architecture handles concurrency, it makes it easier to be flexible wi
 	- A design that leaves the coder no room for interpretation is also dangerous because often it is only during coding where certain options become apparent.
 - Gently exceed your users’ expectations. In reality, the success of a project is measured by how well it meets the expectations of it users, and not by how correctly specifications were implemented.
 
-## Productivity Tips
+### Productivity Tips
 - Use prototypes to learn. Remember that the value is in the lessons learned and not necessarily in the quality of the code produced. Shortly after you will know if you feel you are wasting time on an approach or not.
 - Pick a powerful editor and learn it well. Try to accomplish any given task in as few keystrokes as possible.
 - Automate as much as you can.
@@ -132,7 +132,7 @@ Once your architecture handles concurrency, it makes it easier to be flexible wi
 	- Does it have to be done this way?
 	- Does it have to be done at all?
 
-## Pragmatic Teams
+### Pragmatic Teams
 - Build orthogonal teams. Structure teams around particular functionalities which have clear responsibilities and minimal overlap, rather than based on job functions.
 - Make sure everyone actively monitors the environment and project for changes. Like a frog unaware that it is in a pot of water gradually increasing temperature, it can be difficult to keep an eye on your overall environment in the heat of project development.
 - A simple marketing trick that helps teams communicate as one is to generate a team brand. When you start a project, come up with a name for it, a zany logo, and use your team’s name liberally when talking with people. It sounds silly but it gives your team an identity to build on and the world something memorable to associate with your work.

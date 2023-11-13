@@ -8,33 +8,47 @@ interface NavigationLinkProps {
   title: string;
   subtitle: string;
   href: string;
+  internal?: boolean;
 }
 
-const NavigationLink: FC<NavigationLinkProps> = ({ title, subtitle, href }) => (
-  <Link href={href}>
-    <dt className='flex font-bold'>
-      {title}
-      <span className='relative ml-[8px] flex items-center justify-center'>
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          fill='none'
-          viewBox='0 0 24 24'
-          strokeWidth={1.5}
-          stroke='currentColor'
-          className='h-4 w-4'
-        >
-          <path
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            d='M8.25 4.5l7.5 7.5-7.5 7.5'
-          />
-        </svg>
-      </span>
-    </dt>
-
-    <dd className='font-subtitle text-sm'>{subtitle}</dd>
-  </Link>
-);
+const NavigationLink: FC<NavigationLinkProps> = ({
+  title,
+  subtitle,
+  href,
+  internal = false,
+}) => {
+  const content = (
+    <>
+      <dt className='flex font-bold'>
+        {title}
+        <span className='relative ml-[8px] flex items-center justify-center'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            strokeWidth={1.5}
+            stroke='currentColor'
+            className='h-4 w-4'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              d='M8.25 4.5l7.5 7.5-7.5 7.5'
+            />
+          </svg>
+        </span>
+      </dt>
+      <dd className='font-subtitle text-sm'>{subtitle}</dd>
+    </>
+  );
+  return internal ? (
+    <Link href={href}>{content}</Link>
+  ) : (
+    <a href={href} target='_blank'>
+      {content}
+    </a>
+  );
+};
 
 export default function Home() {
   return (
@@ -55,27 +69,21 @@ export default function Home() {
               title={'Blog'}
               subtitle={'Insights into engineering, business and life'}
               href={'/blog'}
+              internal
             />
             <NavigationLink
               title={'Art'}
               subtitle={'View my digital art'}
-              href={'/blog'}
+              href={'https://www.instagram.com/b2uyk/'}
             />
             <NavigationLink
               title={'Music'}
               subtitle={'View my electronic music'}
-              href={'/blog'}
+              href={'https://soundcloud.com/bwyk'}
             />
           </div>
         </div>
       </div>
-
-      {/*<div className='w-full h-screen flex justify-center align-center bg-gradient-to-tl from-black via-zinc-600/20 to-black'>*/}
-      {/*    <h1 className="z-10 text-4xl text-neutral-50 duration-1000 text-edge-outline animate-title font-display sm:text-6xl md:text-9l whitespace-nowrap bg-clip-text font-bold">*/}
-      {/*        bryan wong*/}
-      {/*    </h1>*/}
-      {/*</div>*/}
-      {/*<Particles className='absolute inset-0 animate-fade-in' quantity={100} />*/}
     </main>
   );
 }
