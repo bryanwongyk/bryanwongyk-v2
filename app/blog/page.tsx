@@ -36,13 +36,16 @@ export default function BlogPage() {
           >
             <div className='flex w-full flex-col tracking-tight'>
               <p className='text-lg font-bold text-neutral-900'>{post.title}</p>
-              <p className='text-sm text-neutral-600'>{post.summary}</p>
-              <p className='mt-1 text-xs text-neutral-400'>
-                {formatDate(post.publishedAt)}
-              </p>
-              <Suspense fallback={<p className='h-5' />}>
-                <Views slug={post.slug} />
-              </Suspense>
+              <p className='text-md text-neutral-600'>{post.summary}</p>
+              <span className='mt-1 flex items-center'>
+                <p className='font-subtitle text-sm text-neutral-400'>
+                  {formatDate(post.publishedAt)}
+                </p>
+                <p className='mx-[8px] text-neutral-600'>·</p>
+                <Suspense fallback={<p className='h-5' />}>
+                  <Views slug={post.slug} />
+                </Suspense>
+              </span>
             </div>
           </Link>
         ))}

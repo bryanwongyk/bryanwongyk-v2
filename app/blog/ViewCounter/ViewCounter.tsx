@@ -16,7 +16,7 @@ interface ViewCounterProps {
 
 const ViewCounter: FC<ViewCounterProps> = ({ slug, allViews, trackView }) => {
   const supabase = createClientComponentClient();
-  const [viewCount, setViewCount] = useState<number>(0);
+  const [viewCount, setViewCount] = useState<number | undefined>(undefined);
 
   useEffect(() => {
     if (trackView) {
@@ -40,9 +40,15 @@ const ViewCounter: FC<ViewCounterProps> = ({ slug, allViews, trackView }) => {
   }, []);
 
   return (
-    <p className='font-subtitle text-sm text-neutral-400'>
-      {viewCount.toLocaleString()} views
-    </p>
+    <>
+      {viewCount ? (
+        <p className='font-subtitle text-sm text-neutral-400'>
+          {viewCount} {viewCount ? 'views' : null}
+        </p>
+      ) : (
+        <p className='font-subtitle text-sm text-neutral-400'>-</p>
+      )}
+    </>
   );
 };
 
