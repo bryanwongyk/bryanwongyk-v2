@@ -3,7 +3,11 @@ import { notFound } from 'next/navigation';
 import { allBlogs } from 'contentlayer/generated';
 import { BlogPost } from '../../components/BlogPost/BlogPost';
 import PageLayout from '../../containers/PageLayout/PageLayout';
-import { FC } from 'react';
+import { FC, Suspense } from 'react';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+import { formatDateWithTimeAgo } from '../../util/formatBlogPostDate';
+import ViewCounter from '../ViewCounter/ViewCounter';
+import postViewsRepository from '../../repository/PostViewsRepository';
 
 export const dynamic = 'force-static';
 
@@ -54,38 +58,14 @@ export const generateMetadata = async ({
   };
 };
 
-function formatDate(date: string) {
-  const currentDate = new Date();
-  const targetDate = new Date(date);
-
-  const yearsAgo = currentDate.getFullYear() - targetDate.getFullYear();
-  const monthsAgo = currentDate.getMonth() - targetDate.getMonth();
-  const daysAgo = currentDate.getDate() - targetDate.getDate();
-
-  let formattedDate = '';
-
-  if (yearsAgo > 0) {
-    formattedDate = `${yearsAgo}y ago`;
-  } else if (monthsAgo > 0) {
-    formattedDate = `${monthsAgo}mo ago`;
-  } else if (daysAgo > 0) {
-    formattedDate = `${daysAgo}d ago`;
-  } else {
-    formattedDate = 'Today';
-  }
-
-  const fullDate = targetDate.toLocaleString('en-us', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
-
-  return `${fullDate} (${formattedDate})`;
-}
+const Views = async ({ slug }: { slug: string }) => {
+  let views = await postViewsRepository.getAllViews();
+  return <ViewCounter allViews={views} slug={slug} trackView />;
+};
 
 const Blog: FC<BlogProps> = ({ params }) => {
   const post = allBlogs.find((post) => post.slug === params.slug);
-
+  console.log('rendered once', post);
   if (!post) {
     notFound();
   }
@@ -99,13 +79,30 @@ const Blog: FC<BlogProps> = ({ params }) => {
           __html: JSON.stringify(post.structuredData),
         }}
       />
-      <h1 className='mb-5 text-4xl font-semibold tracking-tighter'>
+      <Breadcrumbs
+        pages={[
+          {
+            name: 'Blog',
+            href: '/blog',
+            current: false,
+          },
+          {
+            name: post.title,
+            href: `/blog/${post.slug}`,
+            current: true,
+          },
+        ]}
+      />
+      <h1 className='mb-5 mt-8 text-4xl font-semibold tracking-tighter'>
         {post.title}
       </h1>
-      <div className='mb-4 flex max-w-[650px] items-center justify-between text-sm'>
+      <div className='mb-6 flex max-w-[650px] items-center justify-between text-sm'>
         <p className='font-subtitle text-sm text-neutral-400'>
-          {formatDate(post.publishedAt)}
+          {formatDateWithTimeAgo(post.publishedAt)}
         </p>
+        <Suspense fallback={<p className='h-5' />}>
+          <Views slug={post.slug} />
+        </Suspense>
       </div>
       <BlogPost code={post.body.code} />
     </PageLayout>

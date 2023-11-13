@@ -1,0 +1,21 @@
+name: PR Pipeline
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: install
+        run: npm install
+      - name: Typecheck
+        run: npx tsc --noEmit
+      - name: ESLint
+        run: yarn eslint .
+      - name: Prettier
+        run: npx prettier --write .
