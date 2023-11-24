@@ -95,7 +95,8 @@ const components = {
   Callout,
   ProsCard,
   ConsCard,
-  h2: HeadingAnchor,
+  h2: (props) => <HeadingAnchor headingLevel={2} {...props} />,
+  h3: (props) => <HeadingAnchor headingLevel={3} {...props} />,
 };
 
 export function BlogPost({ code }: { code: string }) {

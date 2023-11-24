@@ -9,10 +9,12 @@ const getAnchor = (text: any) => {
     .replace(/[]/g, '-');
 };
 
-const HeadingAnchor = (props: any) => {
+const HeadingAnchor = ({ headingLevel, ...props }) => {
   // const anchor = getAnchor(text);
   const link = `#${props.id}`;
   const text = props.children[1];
+  console.log(props.children);
+  const DynamicHeading = `h${headingLevel}`;
 
   return (
     <Link href={link} className='group relative inline no-underline'>
@@ -22,7 +24,7 @@ const HeadingAnchor = (props: any) => {
         viewBox='0 0 24 24'
         strokeWidth={1.5}
         stroke='currentColor'
-        className='absolute -left-8 top-[3px] h-6 w-6 opacity-0 transition-opacity group-hover:opacity-60'
+        className='absolute -left-8 top-[5px] h-5 w-5 opacity-0 transition-opacity group-hover:opacity-60'
       >
         <path
           strokeLinecap='round'
@@ -30,9 +32,9 @@ const HeadingAnchor = (props: any) => {
           d='M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244'
         />
       </svg>
-      <h2 id={props.id} className='relative flex items-center'>
+      <DynamicHeading id={props.id} className='relative flex items-center'>
         {text}
-      </h2>
+      </DynamicHeading>
     </Link>
   );
 };
