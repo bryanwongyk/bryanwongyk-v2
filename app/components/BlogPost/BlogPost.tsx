@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useMDXComponent } from 'next-contentlayer/hooks';
+import HeadingAnchor from '../HeadingAnchor/HeadingAnchor';
 
 const CustomLink = (props) => {
   const href = props.href;
@@ -21,20 +22,20 @@ const CustomLink = (props) => {
   return <a target='_blank' rel='noopener noreferrer' {...props} />;
 };
 
-function RoundedImage(props) {
-  return <Image alt={props.alt} className='rounded-lg' {...props} />;
-}
+const RoundedImage = (props) => {
+  return <Image alt={props.alt} className='rounded-lg shadow-xl' {...props} />;
+};
 
-function Callout(props) {
+const Callout = (props) => {
   return (
     <div className='mb-8 flex items-center rounded border border-neutral-200 bg-neutral-50 p-1 px-4 py-3 text-sm text-neutral-900'>
       <div className='mr-4 flex w-4 items-center'>{props.emoji}</div>
       <div className='callout w-full'>{props.children}</div>
     </div>
   );
-}
+};
 
-function ProsCard({ title, pros }) {
+const ProsCard = ({ title, pros }) => {
   return (
     <div className='my-4 w-full rounded-xl border border-emerald-200 bg-neutral-50 p-6 dark:border-emerald-900 dark:bg-neutral-900'>
       <span>{`You might use ${title} if...`}</span>
@@ -61,9 +62,9 @@ function ProsCard({ title, pros }) {
       </div>
     </div>
   );
-}
+};
 
-function ConsCard({ title, cons }) {
+const ConsCard = ({ title, cons }) => {
   return (
     <div className='my-6 w-full rounded-xl border border-red-200 bg-neutral-50 p-6 dark:border-red-900 dark:bg-neutral-900'>
       <span>{`You might not use ${title} if...`}</span>
@@ -86,7 +87,7 @@ function ConsCard({ title, cons }) {
       </div>
     </div>
   );
-}
+};
 
 const components = {
   Image: RoundedImage,
@@ -94,6 +95,7 @@ const components = {
   Callout,
   ProsCard,
   ConsCard,
+  h2: HeadingAnchor,
 };
 
 export function BlogPost({ code }: { code: string }) {

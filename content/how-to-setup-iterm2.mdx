@@ -1,0 +1,61 @@
+---
+title: 'A Beginner Tutorial To Set Up Terminal For Coding using iTerm2 and Oh My Zsh'
+publishedAt: '2023-11-18'
+summary: 'My essential setup to improve developer productivity'
+---
+
+Here's a quick post on the current terminal setup I've been using for the past 3 years to help a beginner out. This is my
+essential setup to get stuff done.
+
+## Terminal
+I use [iTerm2](https://iterm2.com/index.html) which is a replacement of the stock terminal that comes in macOS. It has [more features](https://iterm2.com/features.html)
+than the stock terminal like `hotkey window` which allows you to hit a hotkey to bring iTerm2 to the foreground when you're in another application.
+
+I personally don't take full advantage of the additional features but still prefer iTerm2 more because of how it looks.
+
+<Image
+    alt={`iTerm2 screenshot`}
+    src={`/blog-images/how-to-setup-iterm2/iterm2.png`}
+    width={1600}
+    height={840}
+/>
+
+
+Note: To get the dark tabs go to iTerm2, Settings, Appearance, Minimal
+Natural text editing
+
+## Oh My Zsh
+Z shell (or `zsh`) is a command line shell built on top of `bash` and is the default used in macOS. In layman's terms, it's the
+actual command line program the terminal is using to execute your commands.
+
+I use the `Oh My Zsh` framework which allows you to install plugins and themes to improve your terminal even more.
+Here are the main plugins I use which you can use to help you get started.
+
+### Plugins
+#### zsh-syntax
+[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) highlights syntax which makes it more readable.
+
+#### z
+[z](https://github.com/agkozak/zsh-z) lets you jump to your most visited directories.
+
+I use this __all__ the time. For example, say I open up iTerm2 and want to navigate to the path
+`~/Library/Documents/Coding/my-project`.
+
+Instead of manually navigating there with the command [cd](https://en.wikipedia.org/wiki/Cd_(command)#:~:text=The%20cd%20command%20can%20be,move%20to%20any%20given%20directory.), I can simply type in
+```z my-project``` to take me there.
+
+#### zsh-history-substring-search
+[zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) allows you to type in any part of any command you've written in the past and it'll provide these past
+commands as suggestions which you can cycle through using the UP and DOWN arrows.
+
+#### zsh-autosuggestions
+[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) provides auto-completion of a command you're typing based on what you've written in the past. Pairing this with
+`zsh-history-substring-search` makes it a breeze to repeat commands.
+
+### Themes
+I use [Powerlevel10k](https://github.com/romkatv/powerlevel10k) because I saw it recommended a lot. I really like the customisability
+it provides during setup.
+
+However, the colour scheme isn't the most exciting so that could be a dealbreaker for you (even though I find it satisfactory).
+
+

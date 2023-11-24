@@ -10,6 +10,9 @@ const myConfig = {
   ],
   theme: {
     extend: {
+      colors: {
+        primaryTeal: 'var(--highlight-color)',
+      },
       fontFamily: {
         sans: [...defaultTheme.fontFamily.sans],
         display: ['CalSans-SemiBold'],

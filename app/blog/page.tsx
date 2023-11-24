@@ -21,6 +21,9 @@ const Views = async ({ slug }: { slug: string }) => {
 export default function BlogPage() {
   return (
     <PageLayout>
+      <h1 className='text-md mb-6 inline-block bg-neutral-900 px-2 font-display font-bold tracking-wide text-neutral-50'>
+        BLOG
+      </h1>
       {allBlogs
         .sort((a, b) => {
           if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
@@ -31,11 +34,13 @@ export default function BlogPage() {
         .map((post) => (
           <Link
             key={post.slug}
-            className='mb-8 flex flex-col space-y-1'
+            className='group mb-8 inline-block flex flex-col space-y-1'
             href={`/blog/${post.slug}`}
           >
             <div className='flex w-full flex-col tracking-tight'>
-              <p className='text-lg font-bold text-neutral-900'>{post.title}</p>
+              <p className='text-lg font-bold text-neutral-900'>
+                <span className='group-hover:bg-primaryTeal'>{post.title}</span>
+              </p>
               <p className='text-md text-neutral-600'>{post.summary}</p>
               <span className='mt-1 flex items-center'>
                 <p className='font-subtitle text-sm text-neutral-400'>

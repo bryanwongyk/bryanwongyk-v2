@@ -20,7 +20,7 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ pages }) => {
             <div className='flex items-center'>
               {index > 0 && (
                 <svg
-                  className='h-5 w-5 flex-shrink-0 text-neutral-300'
+                  className='mr-4 h-5 w-5 flex-shrink-0 text-neutral-300'
                   fill='currentColor'
                   viewBox='0 0 20 20'
                   aria-hidden='true'

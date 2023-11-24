@@ -64,7 +64,7 @@ export default makeSource({
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [
-      rehypeSlug,
+      rehypeSlug, // add IDs to any h1-h6 tag that doesn't have one, using a slug made from its text
       [
         rehypePrettyCode,
         {
