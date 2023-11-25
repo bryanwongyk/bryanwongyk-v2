@@ -21,7 +21,7 @@ const Views = async ({ slug }: { slug: string }) => {
 export default function BlogPage() {
   return (
     <PageLayout>
-      <h1 className='text-md mb-6 inline-block bg-neutral-900 px-2 font-display font-bold tracking-wide text-neutral-50'>
+      <h1 className='text-md mb-6 inline-block bg-primaryTeal px-2 font-display font-bold tracking-wide text-neutral-600'>
         BLOG
       </h1>
       {allBlogs
@@ -38,7 +38,7 @@ export default function BlogPage() {
             href={`/blog/${post.slug}`}
           >
             <div className='flex w-full flex-col tracking-tight'>
-              <p className='text-lg font-bold text-neutral-900'>
+              <p className='text-lg font-bold text-neutral-700'>
                 <span className='group-hover:bg-primaryTeal'>{post.title}</span>
               </p>
               <p className='text-md text-neutral-600'>{post.summary}</p>

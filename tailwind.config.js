@@ -12,6 +12,7 @@ const myConfig = {
     extend: {
       colors: {
         primaryTeal: 'var(--highlight-color)',
+        primaryRed: '#F05454',
       },
       fontFamily: {
         sans: [...defaultTheme.fontFamily.sans],

@@ -9,6 +9,7 @@ const getAnchor = (text: any) => {
     .replace(/[]/g, '-');
 };
 
+// @ts-ignore
 const HeadingAnchor = ({ headingLevel, ...props }) => {
   // const anchor = getAnchor(text);
   const link = `#${props.id}`;
@@ -32,6 +33,7 @@ const HeadingAnchor = ({ headingLevel, ...props }) => {
           d='M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244'
         />
       </svg>
+      {/*@ts-ignore*/}
       <DynamicHeading id={props.id} className='relative flex items-center'>
         {text}
       </DynamicHeading>

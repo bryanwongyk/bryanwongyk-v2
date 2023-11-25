@@ -29,6 +29,7 @@ const computedFields = {
         '@type': 'Person',
         name: 'Bryan Wong',
       },
+      tag: doc.tag,
     }),
   },
 };
