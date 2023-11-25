@@ -14,7 +14,6 @@ const HeadingAnchor = ({ headingLevel, ...props }) => {
   // const anchor = getAnchor(text);
   const link = `#${props.id}`;
   const text = props.children[1];
-  console.log(props.children);
   const DynamicHeading = `h${headingLevel}`;
 
   return (

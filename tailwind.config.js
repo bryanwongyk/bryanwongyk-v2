@@ -11,7 +11,19 @@ const myConfig = {
   theme: {
     extend: {
       colors: {
-        primaryTeal: 'var(--highlight-color)',
+        teal: {
+          50: '#ecfdf7',
+          100: '#d1faea',
+          200: '#a8f2da',
+          300: 'var(--highlight-color)',
+          400: '#36d1ad',
+          500: '#12b796',
+          600: '#06957b',
+          700: '#057766',
+          800: '#075e51',
+          900: '#074d44',
+          950: '#022c28',
+        },
         primaryRed: '#F05454',
       },
       fontFamily: {

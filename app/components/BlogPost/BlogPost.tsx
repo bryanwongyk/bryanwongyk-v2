@@ -26,6 +26,10 @@ const RoundedImage = (props) => {
   return <Image alt={props.alt} className='rounded-lg shadow-xl' {...props} />;
 };
 
+const PostHeader = (props) => {
+  return <h1 className='bg-teal-300' {...props} />;
+};
+
 const Callout = (props) => {
   return (
     <div className='mb-8 flex items-center rounded border border-neutral-200 bg-neutral-50 p-1 px-4 py-3 text-sm text-neutral-900'>
@@ -95,6 +99,7 @@ const components = {
   Callout,
   ProsCard,
   ConsCard,
+  h1: PostHeader,
   h2: (props) => <HeadingAnchor headingLevel={2} {...props} />,
   h3: (props) => <HeadingAnchor headingLevel={3} {...props} />,
 };

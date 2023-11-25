@@ -8,6 +8,9 @@ import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import { formatDateWithTimeAgo } from '../../util/formatBlogPostDate';
 import ViewCounter from '../ViewCounter/ViewCounter';
 import postViewsRepository from '../../repository/PostViewsRepository';
+import ReadingProgressBar from '../../components/ReadingProgressBar/ReadingProgressBar';
+import BlogPageLayout from '../../containers/BlogPageLayout/BlogPageLayout';
+
 export const dynamic = 'force-static';
 
 type BlogProps = {
@@ -70,7 +73,8 @@ const Blog: FC<BlogProps> = ({ params }) => {
 
   return (
     <>
-      <PageLayout>
+      <BlogPageLayout>
+        <ReadingProgressBar />
         <script
           type='application/ld+json'
           suppressHydrationWarning
@@ -92,19 +96,20 @@ const Blog: FC<BlogProps> = ({ params }) => {
             },
           ]}
         />
-        <h1 className='mb-6 mt-10 text-2xl font-semibold tracking-tighter'>
+        <h1 className='mb-4 mt-6 inline-block text-2xl font-semibold tracking-tighter'>
           {post.title}
         </h1>
-        <div className='mb-6 flex max-w-2xl items-center justify-between text-sm'>
+        <div className='mb-8 flex max-w-2xl items-center text-sm'>
           <p className='font-subtitle text-sm text-neutral-400'>
             {formatDateWithTimeAgo(post.publishedAt)}
           </p>
+          <p className='mx-[8px] text-neutral-600'>·</p>
           <Suspense fallback={<p className='h-5' />}>
             <Views slug={post.slug} />
           </Suspense>
         </div>
         <BlogPost code={post.body.code} />
-      </PageLayout>
+      </BlogPageLayout>
     </>
   );
 };
