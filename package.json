@@ -25,7 +25,9 @@
     "prettier": "^3.0.0",
     "prettier-plugin-tailwindcss": "^0.4.1",
     "react": "^18.2.0",
+    "react-burger-menu": "^3.0.9",
     "react-dom": "^18.2.0",
+    "react-spinners": "^0.13.8",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-pretty-code": "^0.10.2",
     "rehype-slug": "^6.0.0",
@@ -33,10 +35,12 @@
     "shiki": "^0.14.5",
     "tailwind-styled-components": "^2.2.0",
     "typescript": "^5.2.2",
-    "typescript-eslint": "^0.0.1-alpha.0"
+    "typescript-eslint": "^0.0.1-alpha.0",
+    "use-breakpoint": "^4.0.1"
   },
   "devDependencies": {
     "@types/node": "20.9.0",
+    "@types/react-burger-menu": "^2.8.6",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
     "@typescript-eslint/parser": "^6.4.0",
     "autoprefixer": "^10.4.14",
