@@ -6,6 +6,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 const CategoryFilter = () => {
   const router = useRouter();
+  const pathName = usePathname();
   const searchParams = useSearchParams();
   const currentCategory = searchParams.get('category');
 
@@ -26,8 +27,9 @@ const CategoryFilter = () => {
     <li
       key={tag}
       className={` cursor-pointer hover:-translate-y-[1px] ${
-        currentCategory == tag ||
-        (!currentCategory && tag == PostTag.All.toString())
+        pathName == '/blog' &&
+        (currentCategory == tag ||
+          (!currentCategory && tag == PostTag.All.toString()))
           ? 'font-medium text-neutral-900'
           : 'text-neutral-500'
       }`}
