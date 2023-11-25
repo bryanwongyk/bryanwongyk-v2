@@ -1,6 +1,6 @@
 export function cleanAndCapitaliseFirstLetterInString(string: string) {
-  // Use a regular expression to split the string by spaces or underscores
-  const capitalisedTypeNameWords = string.split(/[\s_]+/);
+  // Use a regular expression to split the string by spaces, dashes or underscores
+  const capitalisedTypeNameWords = string.split(/[\s_-]+/);
 
   for (let i = 0; i < capitalisedTypeNameWords.length; i++) {
     capitalisedTypeNameWords[i] =
