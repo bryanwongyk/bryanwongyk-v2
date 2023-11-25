@@ -7,6 +7,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 const CategoryFilter = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const currentCategory = searchParams.get('category');
 
   const handleCategoryClick = (tag: string) => {
     if (tag == PostTag.All.toString()) {
@@ -24,7 +25,12 @@ const CategoryFilter = () => {
   const categoryFilters = Object.values(PostTag).map((tag) => (
     <li
       key={tag}
-      className='cursor-pointer hover:-translate-y-[1px]'
+      className={` cursor-pointer hover:-translate-y-[1px] ${
+        currentCategory == tag ||
+        (!currentCategory && tag == PostTag.All.toString())
+          ? 'font-medium text-neutral-900'
+          : 'text-neutral-500'
+      }`}
       onClick={() => handleCategoryClick(tag)}
     >
       {cleanAndCapitaliseFirstLetterInString(tag)}
