@@ -34,6 +34,7 @@
     "remark-gfm": "^3.0.1",
     "shiki": "^0.14.5",
     "tailwind-styled-components": "^2.2.0",
+    "thpace": "^2.0.2",
     "typescript": "^5.2.2",
     "typescript-eslint": "^0.0.1-alpha.0",
     "use-breakpoint": "^4.0.1"

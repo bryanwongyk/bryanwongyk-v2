@@ -33,8 +33,6 @@ export const generateMetadata = async ({
     slug,
   } = post;
   const ogImage = image as string;
-  // ? `https://leerob.io${image}`
-  // : `https://leerob.io/og?title=${title}`;
 
   return {
     title,

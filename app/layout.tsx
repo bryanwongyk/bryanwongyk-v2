@@ -15,10 +15,10 @@ export const metadata: Metadata = {
     default: 'Bryan Wong',
     template: '%s | Bryan Wong',
   },
-  description: 'Software engineer & creative.',
+  description: 'Software engineer & creator.',
   openGraph: {
     title: 'Bryan Wong',
-    description: 'Software engineer & creative.',
+    description: 'Software engineer & creator.',
     url: 'https://bryanwongyk.com',
     siteName: 'Bryan Wong',
     locale: 'en_US',

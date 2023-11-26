@@ -30,7 +30,7 @@ const CategoryFilter = () => {
         pathName == '/blog' &&
         (currentCategory == tag ||
           (!currentCategory && tag == PostTag.All.toString()))
-          ? 'font-medium text-neutral-900'
+          ? 'text-neutral-300'
           : 'text-neutral-500'
       }`}
       onClick={() => handleCategoryClick(tag)}
@@ -41,8 +41,8 @@ const CategoryFilter = () => {
 
   return (
     <div>
-      <h4 className='mb-3 font-medium tracking-wide text-neutral-400'>
-        CATEGORIES{' '}
+      <h4 className='mb-3 font-subtitle font-medium tracking-wide text-neutral-100'>
+        // CATEGORIES{' '}
       </h4>
       <ul className='flex flex-col gap-y-1'>{categoryFilters}</ul>
     </div>

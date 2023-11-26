@@ -29,7 +29,7 @@ export default function BlogPage({
   const category = searchParams.category;
   return (
     <BlogPageLayout>
-      <h1 className='text-md mb-6 inline-block bg-teal-300 px-2 font-display font-bold tracking-wide text-neutral-600'>
+      <h1 className='text-md mb-6 inline-block bg-cyberpunkYellow-300 px-2 font-display font-bold tracking-wide text-neutral-600'>
         BLOG
       </h1>
       {allBlogs
@@ -43,12 +43,12 @@ export default function BlogPage({
         .map((post) => (
           <Link
             key={post.slug}
-            className='group mb-8 inline-block flex flex-col space-y-1'
+            className='group mb-8 inline-block flex flex-col space-y-1 hover:-translate-y-[1px]'
             href={`/blog/${post.slug}`}
           >
             <div className='flex w-full flex-col tracking-tight'>
               <p className='text-lg font-bold text-neutral-700'>
-                <span className='group-hover:bg-teal-300'>{post.title}</span>
+                <span>{post.title}</span>
               </p>
               <p className='text-md text-neutral-600'>{post.summary}</p>
               <span className='mt-1 flex items-center'>

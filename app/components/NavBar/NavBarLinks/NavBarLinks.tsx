@@ -37,8 +37,8 @@ const NavigationLink: FC<NavigationLinkProps> = ({
 }) => {
   const content = (
     <>
-      <dt className='text-md mb-1 flex font-bold text-neutral-100 sm:text-neutral-600'>
-        {title}
+      <dt className='mb-1 flex text-sm font-bold text-neutral-100 sm:text-neutral-600'>
+        {title.toUpperCase()}
         <span className='relative ml-[8px] flex items-center justify-center'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -56,7 +56,7 @@ const NavigationLink: FC<NavigationLinkProps> = ({
           </svg>
         </span>
       </dt>
-      <dd className='font-subtitle text-sm tracking-tight text-neutral-100 sm:text-neutral-600'>
+      <dd className='font-subtitle text-xs tracking-tight text-neutral-100 sm:text-neutral-600'>
         {subtitle}
       </dd>
     </>

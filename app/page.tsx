@@ -15,39 +15,10 @@ export default function Home() {
         <div>
           <div>
             <MobileTextContainer>
-              <h1 className='mb-4 inline-block bg-teal-300 px-0.5 py-0.5 text-2xl font-bold'>
-                I'm Bryan - a software engineer & creative{' '}
+              <h1 className='mb-6 inline-block px-0.5 py-0.5 font-subtitle text-2xl font-bold tracking-tighter'>
+                I'm Bryan - a software engineer & creator{' '}
               </h1>
-              <span className='mb-2 flex items-center'>
-                <Image
-                  src={'/svg/noun-lightning.svg'}
-                  width={28}
-                  height={28}
-                  alt={'lightning'}
-                  className='mr-[4px]'
-                />
-                <p className=''>
-                  Currently building back-end financial infrastructure @{' '}
-                  <a
-                    href='https://www.airwallex.com/au'
-                    target='_blank'
-                    className='underline'
-                  >
-                    Airwallex
-                  </a>
-                </p>
-              </span>
             </MobileTextContainer>
-            <span className='mb-4 flex items-center'>
-              <Image
-                src={'/svg/noun-pin.svg'}
-                width={28}
-                height={28}
-                alt={'pin'}
-                className='mr-[4px]'
-              />
-              <p className=''>Recently based in Sydney, AU</p>
-            </span>
           </div>
           <div>
             <div className='flex items-center'>
@@ -56,9 +27,26 @@ export default function Home() {
                 width={500}
                 height={500}
                 alt='Human jumping'
-                className='z-10 border-2'
+                className='z-10 border-[1px] border-y-cyberpunkYellow-400 sm:border-[4px]'
               />
             </div>
+          </div>
+          <div>
+            <MobileTextContainer>
+              <div className='mb-10 mt-6 flex flex-col gap-y-2 font-subtitle'>
+                <p>
+                  // Currently building back-end financial infrastructure @{' '}
+                  <a
+                    href='https://www.airwallex.com/au'
+                    target='_blank'
+                    className='underline'
+                  >
+                    Airwallex
+                  </a>
+                </p>
+                <p>// Sydney, AU</p>
+              </div>
+            </MobileTextContainer>
           </div>
         </div>
       </div>

@@ -7,15 +7,17 @@ import useBreakpoint from 'use-breakpoint';
 
 const PageLayout = ({ children }: { children: React.ReactNode }) => {
   const { breakpoint } = useBreakpoint(BREAKPOINTS);
-
   return (
     <main>
       {breakpoint == null ? null : (
-        <div id='outer-container' className='mx-auto max-w-7xl sm:py-[96px]'>
+        <div
+          id='outer-container'
+          className='mx-auto max-w-7xl sm:px-[16px] sm:pt-[96px] lg:px-[48px]'
+        >
           {breakpoint == 'mobile' ? <MobileNavBar /> : <NavBar />}
           <div
             id='page-wrap'
-            className=' my-[54px] min-h-[calc(100vh-20vh)] sm:ml-[240px]'
+            className='mt-[24px] sm:mb-[54px] sm:ml-[240px] sm:mt-0'
           >
             {children}
           </div>

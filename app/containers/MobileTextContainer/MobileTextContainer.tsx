@@ -1,7 +1,17 @@
-import { children } from 'hastscript/lib/jsx-classic';
+import { classNames } from '../../util/classnames';
 
-const MobileTextContainer = ({ children }: { children: React.ReactNode }) => {
-  return <div className='px-[8px]'>{children}</div>;
+const MobileTextContainer = ({
+  children,
+  additionalClassNames = '',
+}: {
+  children: React.ReactNode;
+  additionalClassNames?: string;
+}) => {
+  return (
+    <div className={classNames('px-[12px] sm:px-0', additionalClassNames)}>
+      {children}
+    </div>
+  );
 };
 
 export default MobileTextContainer;
