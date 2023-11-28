@@ -27,7 +27,7 @@ const BlogPageLayout = ({ children }: { children: React.ReactNode }) => {
             </MobileTextContainer>
             <div />
             <section>
-              <div className='mb-[16px] rounded-2xl bg-neutral-900 px-[24px] pb-[32px] pt-[16px] xl:w-56'>
+              <div className='mb-[16px] rounded-2xl bg-neutral-900 px-[32px] pb-[32px] pt-[16px] xl:mx-auto xl:w-[230px]'>
                 <AuthorBio />
                 <CategoryFilter />
               </div>

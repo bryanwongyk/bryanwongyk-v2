@@ -2,7 +2,7 @@ import type { Metadata, NextPageContext } from 'next';
 import Link from 'next/link';
 import { allBlogs } from 'contentlayer/generated';
 import PageLayout from '../containers/PageLayout/PageLayout';
-import { formatDate } from '../util/formatBlogPostDate';
+import { formatDate } from './util/formatBlogPostDate';
 import { Suspense } from 'react';
 import ViewCounter from './ViewCounter/ViewCounter';
 import postViewsRepository from '../repository/PostViewsRepository';

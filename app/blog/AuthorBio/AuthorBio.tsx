@@ -6,7 +6,7 @@ const AuthorBio = () => (
       // ABOUT ME{' '}
     </h4>
     <Image
-      src='/landing-images/headshot-1.jpeg'
+      src='/headshots/headshot-1.jpeg'
       width={125}
       height={125}
       alt='Bryan Wong Avatar'

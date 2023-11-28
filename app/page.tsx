@@ -23,7 +23,7 @@ export default function Home() {
           <div>
             <div className='flex items-center'>
               <Image
-                src='/landing-images/headshot-2.jpg'
+                src='/headshots/headshot-2.jpg'
                 width={500}
                 height={500}
                 alt='Human jumping'
