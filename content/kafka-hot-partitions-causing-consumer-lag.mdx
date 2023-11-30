@@ -8,7 +8,7 @@ tag: software-engineering
 One of the first problems I faced using Kafka was debugging why there was high latency (up to a minute or higher) between an event being published
 onto a topic and that event being consumed.
 
-The problem was a hot partition. Here's how I found it.
+The problem was a hot partition. Here's how I solved it.
 
 ## What partitions are and how they can guarantee ordering of events
 A Kafka topic can be split up into subsets called partitions. These partitions are distributed across the Kafka cluster,
@@ -33,7 +33,7 @@ This results in 'consumer lag' reading from this partition in particular because
 to process. This lag indicates the latency or delay between the time when the events are published to the partition, and when the consumer reads it.
 
 ## How can we solve this?
-There are a few possible options to consider:
+There are a few possible options to consider to improve throughput:
 1. Optimise the processing of each event to be quicker
 2. Optimise your Kafka configuration for low latency
 3. Increase the number of partitions to increase distribution of the data

@@ -1,0 +1,112 @@
+---
+title: 'gRPC & Protobuf: Implementing A Partial Update API'
+publishedAt: '2023-11-28'
+summary: 'How ordered messages lead to high latency and how it was fixed'
+tag: software-engineering
+---
+I came across an interesting problem in Protobuf (Proto 3) when implementing a gRPC API endpoint to allow partial updates.
+That is, a client can choose to specify all or some fields to update where the fields are nullable.
+
+The reason I wanted the API to allow partial updates instead of needing to update the entire resource is because:
+1. The client doesn't need to make an additional query beforehand for the current state of the other fields
+2. The server doesn't need to unnecessarily update the other fields if they haven't changed
+
+This meant I needed to be able to represent a field in any of the following three states:
+1. Explicitly set to a non-null value
+2. Explicitly set to null value
+3. Ignore the field from the update (i.e. not set)
+
+These are the two options I explored and what I landed on.
+
+## ❌ Option #1: Using field masks
+This is the approach for partial updates recommended by [the Protobuf team](https://protobuf.dev/programming-guides/api/#use-update-field-mask) and documented in [this Netflix tech blog article](https://netflixtechblog.com/practical-api-design-at-netflix-part-1-using-protobuf-fieldmask-35cfdc606518).
+
+A field mask is essentially an additional parameter you pass in to specify a set of fields to affect with the request.
+For an UPDATE API, this may denote the set of fields to update on the resource. For a GET API, this may denote the set of fields to fetch and return in the response.
+
+The pros of this approach are that:
+1. It is a minimal change to the Protobuf schema simply requiring adding an extra field
+2. It can be added to the server-side with backward compatible logic. If an older message doesn't have a field mask, it can just be assumed that all fields should be taken.
+
+
+The cons of this approach are that:
+1. Fields can no longer be renamed because field masks use field names to specify if they should be included or not. This makes changing field names backward incompatible (as they become misaligned between the server and client) unless you keep track of field name changes. This eliminates one of the benefits of Protobuf.
+2. Implementation can get convoluted as the server/client code needs to reference field names.
+
+## ✅ Option #2: Defining our own nullable wrappers
+This is the approach I ended up using to avoid the cons with option #1. Basically we define reusable wrappers that can represent all 3 states.
+
+For example, we can represent native types like `string` like so:
+```protobuf
+message NullableStringValue {
+    oneof setAs {
+        google.protobuf.NullValue null = 1;
+        string value = 2;
+    }
+}
+```
+
+We can also represent `repeated` fields like so:
+
+```protobuf
+message NullableRepeatedStringValue {
+    message RepeatedStringValue {
+        repeated string value = 1;
+    }
+    oneof setAs {
+        google.protobuf.NullValue null = 1;
+        RepeatedStringValue value = 2;
+    }
+}
+```
+
+We can reference the wrappers like this:
+```protobuf
+message UpdatableFields {
+    optional NullableStringValue name = 1;
+    optional NullableRepeatedStringValue ids = 2;
+}
+```
+
+`optional` fields provide us with the `.hasX()` method to check if they have been set or not e.g. `.hasName()` or `.hasIds()`.
+
+If the field has been set, we can check if it has been explicitly set as a null or non-null value. For example in Kotlin:
+```kotlin
+fun NullableStringValue.get(): String? =
+    when (this.setAsCase) {
+        NullableStringValue.SetAsCase.NULL -> null
+        NullableStringValue.SetAsCase.VALUE -> value
+        null,
+        NullableStringValue.SetAsCase.SETAS_NOT_SET -> throw IllegalArgumentException("must be explicitly set to value or null")
+    }
+}
+```
+
+### Why does this work?
+1. Using `optional` allows us to differentiate between 'set' and 'not set'
+2. Using `oneof` allows us to differentiate between 'set as null' and 'set as non-null' as Protobuf doesn't natively allow defining nullable fields
+    - Typically the absence of a field marked as `optional` is implicitly treated as null. So we need to use the Google message type `google.protobuf.NullValue` to represent an explicit `null`.
+3. While combining `optional` and `repeated` on a single field doesn't work, we can still make use of `optional` by pulling the `repeated` field out into its own message. For example:
+```protobuf
+# This doesn't work
+message UpdatableFields {
+    ...
+    optional repeated string ids = 2;
+    ...
+}
+```
+
+```protobuf
+# This works
+message UpdatableFields {
+    ...
+    optional OptionalIds ids = 2;
+    ...
+}
+
+message OptionalIds {
+    repeated string ids = 1;
+}
+```
+
+In this example, `OptionalIds` is equivalent to our wrapper containing any `repeated` fields.
