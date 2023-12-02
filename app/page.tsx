@@ -44,7 +44,7 @@ export default function Home() {
                     Airwallex
                   </a>
                 </p>
-                <p>// Sydney, AU</p>
+                <p>// Sydney, AU (originally from Melbourne)</p>
               </div>
             </MobileTextContainer>
           </div>
