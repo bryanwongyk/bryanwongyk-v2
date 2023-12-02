@@ -3,6 +3,7 @@ title: 'gRPC & Protobuf: Implementing A Partial Update API'
 publishedAt: '2023-11-28'
 summary: 'How ordered messages lead to high latency and how it was fixed'
 tag: software-engineering
+isPublished: false
 ---
 I came across an interesting problem in Protobuf (Proto 3) when implementing a gRPC API endpoint to allow partial updates.
 That is, a client can choose to specify all or some fields to update where the fields are nullable.

@@ -30,6 +30,7 @@ const computedFields = {
         name: 'Bryan Wong',
       },
       tag: doc.tag,
+      isPublished: doc.isPublished,
     }),
   },
 };
@@ -57,6 +58,10 @@ export const Blog = defineDocumentType(() => ({
     },
     tag: {
       type: 'string',
+    },
+    isPublished: {
+      type: 'boolean',
+      required: true,
     },
   },
   computedFields,

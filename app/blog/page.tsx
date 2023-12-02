@@ -36,6 +36,7 @@ export default function BlogPage({
           return 1;
         })
         .filter((post) => (!!category ? post.tag == category : true))
+        .filter((post) => post.isPublished)
         .map((post) => (
           <Link
             key={post.slug}
