@@ -1,14 +1,12 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { FC } from 'react';
 
 interface LogoProps {
-  size?: number;
   alternate?: boolean;
 }
 
-const Logo: FC<LogoProps> = ({ size = 75, alternate = false }) => {
+const Logo: FC<LogoProps> = ({ alternate = false }) => {
   const router = useRouter();
   return (
     <div className='relative' onClick={() => router.push('/')}>

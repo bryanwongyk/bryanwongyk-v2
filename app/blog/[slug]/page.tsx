@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { allBlogs } from 'contentlayer/generated';
 import { BlogPost } from '../../components/BlogPost/BlogPost';
-import { createRef, FC, Suspense } from 'react';
+import { FC, Suspense } from 'react';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import { formatDateWithTimeAgo } from '../util/formatBlogPostDate';
 import ViewCounter from '../ViewCounter/ViewCounter';
@@ -58,7 +58,7 @@ export const generateMetadata = async ({
 };
 
 const Views = async ({ slug }: { slug: string }) => {
-  let views = await postViewsRepository.getAllViews();
+  const views = await postViewsRepository.getAllViews();
   return <ViewCounter allViews={views} slug={slug} trackView />;
 };
 

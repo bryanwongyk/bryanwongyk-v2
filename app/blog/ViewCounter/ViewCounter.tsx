@@ -2,10 +2,7 @@
 
 import { FC, useEffect, useState } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import {
-  postViewsSchema,
-  RPC_INCREMENT_POST_VIEWS,
-} from '../../repository/schema';
+import { RPC_INCREMENT_POST_VIEWS } from '../../repository/schema';
 import { PostView } from '../../repository/entities/PostView';
 
 interface ViewCounterProps {

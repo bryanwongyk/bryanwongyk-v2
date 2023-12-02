@@ -3,7 +3,7 @@ import Image from 'next/image';
 const AuthorBio = () => (
   <div className='mb-8'>
     <h4 className='mb-4 font-subtitle font-medium tracking-wide text-neutral-100'>
-      // ABOUT ME{' '}
+      {'// ABOUT ME'}{' '}
     </h4>
     <Image
       src='/headshots/headshot-1.jpeg'
@@ -13,7 +13,7 @@ const AuthorBio = () => (
       className='mb-4 shadow-md'
     />
     <p className='prose-md text-neutral-400'>
-      I'm Bryan - a software engineer and creator
+      I&apos;m Bryan - a software engineer and creator
     </p>
   </div>
 );

@@ -1,10 +1,10 @@
-// @ts-nocheck
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 import Link from 'next/link';
 import Image from 'next/image';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import HeadingAnchor from '../HeadingAnchor/HeadingAnchor';
 
-const CustomLink = (props) => {
+const CustomLink = (props: any) => {
   const href = props.href;
 
   if (href.startsWith('/')) {
@@ -22,15 +22,15 @@ const CustomLink = (props) => {
   return <a target='_blank' rel='noopener noreferrer' {...props} />;
 };
 
-const RoundedImage = (props) => {
+const RoundedImage = (props: any) => {
   return <Image alt={props.alt} className='rounded-lg shadow-xl' {...props} />;
 };
 
-const PostHeader = (props) => {
+const PostHeader = (props: any) => {
   return <h1 className='bg-cyberpunkYellow-300' {...props} />;
 };
 
-const Callout = (props) => {
+const Callout = (props: any) => {
   return (
     <div className='mb-8 flex items-center rounded border border-neutral-200 bg-neutral-50 p-1 px-4 py-3 text-sm text-neutral-900'>
       <div className='mr-4 flex w-4 items-center'>{props.emoji}</div>
@@ -39,69 +39,13 @@ const Callout = (props) => {
   );
 };
 
-const ProsCard = ({ title, pros }) => {
-  return (
-    <div className='my-4 w-full rounded-xl border border-emerald-200 bg-neutral-50 p-6 dark:border-emerald-900 dark:bg-neutral-900'>
-      <span>{`You might use ${title} if...`}</span>
-      <div className='mt-4'>
-        {pros.map((pro) => (
-          <div key={pro} className='mb-2 flex items-baseline font-medium'>
-            <div className='mr-2 h-4 w-4'>
-              <svg className='h-4 w-4 text-emerald-500' viewBox='0 0 24 24'>
-                <g
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                >
-                  <path d='M22 11.08V12a10 10 0 11-5.93-9.14' />
-                  <path d='M22 4L12 14.01l-3-3' />
-                </g>
-              </svg>
-            </div>
-            <span>{pro}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const ConsCard = ({ title, cons }) => {
-  return (
-    <div className='my-6 w-full rounded-xl border border-red-200 bg-neutral-50 p-6 dark:border-red-900 dark:bg-neutral-900'>
-      <span>{`You might not use ${title} if...`}</span>
-      <div className='mt-4'>
-        {cons.map((con) => (
-          <div key={con} className='mb-2 flex items-baseline font-medium'>
-            <div className='mr-2 h-4 w-4'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                viewBox='0 0 20 20'
-                fill='currentColor'
-                className='h-4 w-4 text-red-500'
-              >
-                <path d='M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z' />
-              </svg>
-            </div>
-            <span>{con}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
 const components = {
   Image: RoundedImage,
   a: CustomLink,
   Callout,
-  ProsCard,
-  ConsCard,
   h1: PostHeader,
-  h2: (props) => <HeadingAnchor headingLevel={2} {...props} />,
-  h3: (props) => <HeadingAnchor headingLevel={3} {...props} />,
+  h2: (props: any) => <HeadingAnchor headingLevel={2} {...props} />,
+  h3: (props: any) => <HeadingAnchor headingLevel={3} {...props} />,
 };
 
 export function BlogPost({ code }: { code: string }) {

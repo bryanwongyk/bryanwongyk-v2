@@ -1,11 +1,9 @@
-import {
-  createClientComponentClient,
-  createServerComponentClient,
-} from '@supabase/auth-helpers-nextjs';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { postViewsSchema } from './schema';
 import { PostView } from './entities/PostView';
 
 class PostViewsRepository {
+  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   supabase: any;
 
   constructor() {

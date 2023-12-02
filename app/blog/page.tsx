@@ -1,14 +1,10 @@
-import type { Metadata, NextPageContext } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { allBlogs } from 'contentlayer/generated';
-import PageLayout from '../containers/PageLayout/PageLayout';
 import { formatDate } from './util/formatBlogPostDate';
 import { Suspense } from 'react';
 import ViewCounter from './ViewCounter/ViewCounter';
 import postViewsRepository from '../repository/PostViewsRepository';
-import { PostView } from '../repository/entities/PostView';
-import { PostTag } from '../types/enums';
-import CategoryFilter from './CategoryFilter/CategoryFilter';
 import BlogPageLayout from '../containers/BlogPageLayout/BlogPageLayout';
 
 export const metadata: Metadata = {
@@ -17,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 const Views = async ({ slug }: { slug: string }) => {
-  let views = await postViewsRepository.getAllViews();
+  const views = await postViewsRepository.getAllViews();
   return <ViewCounter allViews={views} slug={slug} trackView={false} />;
 };
 

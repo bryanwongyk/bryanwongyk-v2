@@ -16,7 +16,7 @@ export default function Home() {
           <div>
             <MobileTextContainer>
               <h1 className='mb-6 inline-block px-0.5 py-0.5 font-subtitle text-2xl font-bold tracking-tighter'>
-                I'm Bryan - a software engineer & creator{' '}
+                I&apos;m Bryan - a software engineer & creator{' '}
               </h1>
             </MobileTextContainer>
           </div>
@@ -35,7 +35,7 @@ export default function Home() {
             <MobileTextContainer>
               <div className='mb-10 mt-6 flex flex-col gap-y-2 font-subtitle'>
                 <p>
-                  // Currently building back-end financial infrastructure @{' '}
+                  {'// Currently building back-end financial infrastructure @'}{' '}
                   <a
                     href='https://www.airwallex.com/au'
                     target='_blank'
@@ -44,7 +44,7 @@ export default function Home() {
                     Airwallex
                   </a>
                 </p>
-                <p>// Sydney, AU (originally from Melbourne)</p>
+                <p>{'// Sydney, AU (originally from Melbourne)'}</p>
               </div>
             </MobileTextContainer>
           </div>

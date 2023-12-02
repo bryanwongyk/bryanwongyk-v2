@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Logo from '../Logo/Logo';
 
 const navigation = [
   { name: 'Blog', internal: true, href: '/blog' },
