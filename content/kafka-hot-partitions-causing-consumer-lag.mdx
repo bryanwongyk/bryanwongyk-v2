@@ -1,0 +1,47 @@
+---
+title: 'Kafka: Solving High Latency Caused By Hot Partitions'
+publishedAt: '2023-11-28'
+summary: 'How ordered messages lead to high latency and how it was fixed'
+tag: software-engineering
+isPublished: false
+---
+
+One of the first problems I faced using Kafka was debugging why there was high latency (up to a minute or higher) between an event being published
+onto a topic and that event being consumed.
+
+The problem was a hot partition. Here's how I solved it.
+
+## What partitions are and how they can guarantee ordering of events
+A Kafka topic can be split up into subsets called partitions. These partitions are distributed across the Kafka cluster,
+allowing data to be written/read from them in parallel.  This makes Kafka very performant as opposed to reading and writing data from a single node.
+
+The issue with data being written in parallel is that you lose any guarantee of `ordering`.
+That is, the order you think you've published the events to the topic may not be the actual order that they're written or read.
+A reason may be differing network latency of the events being published to different Kafka brokers.
+
+The only way to guarantee ordering is by adding a `partition key` to the event. This key is hashed and used to
+determine which partition an event is sent to. Ordering is always guaranteed within a given partition (but not across partitions).
+
+For example, if you wanted events related to a given user to show up in order, then you could use the user ID as a partition key.
+Therefore, all events related to this user would be written to, and eventually read in order from a given partition.
+
+## What is a hot partition?
+What happens if you have a set of particularly active users?
+
+The partitions storing events for these users would have disproportionately higher traffic than other partitions.
+
+This results in 'consumer lag' reading from this partition in particular because there is a large backlog of events for the consumer
+to process. This lag indicates the latency or delay between the time when the events are published to the partition, and when the consumer reads it.
+
+## How can we solve this?
+There are a few possible options to consider to improve throughput:
+1. Optimise the processing of each event to be quicker
+2. Optimise your Kafka configuration for low latency
+3. Increase the number of partitions to increase distribution of the data
+4. Change the partition key to something else that would increase distribution of the data
+
+In my particular case, I used option 1 and 2 to solve the issue.
+1. I added a database index to a query that was made as part of the event's processing flow which greatly reduced latency.
+2. I configured the consumers to allow concurrent processing of events from multiple partitions at once.
+By default, Kafka Consumers or Streams use only 1 thread to process events from all partitions. So configuring the number of threads to
+be >= the number of topic partitions ensures that each partition can be processed in parallel by a separate thread.

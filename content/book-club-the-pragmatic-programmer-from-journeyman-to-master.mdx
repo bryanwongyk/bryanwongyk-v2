@@ -1,0 +1,143 @@
+---
+title: 'Book Cheat Sheet: The Pragmatic Programmer, From Journeyman To Master'
+publishedAt: '2023-04-02'
+summary: 'A book summary on career and programming tips for junior software engineers'
+tag: software-engineering
+isPublished: true
+---
+I decided to give 'The Pragmatic Programmer: From Journeyman to Master' (by Andrew Hunt and David Thomas) a go after finding it frequently recommended on Reddit for junior software engineers.
+I liked that it was focused on general 'career development' as opposed to being a technical book. The author uses a lot of analogies and real-world metaphors to help drive the lessons home.
+I've condensed my key take-aways below as a cheat-sheet for you.
+
+## A Career Mindset
+- Take responsibility for outcomes. When you make a mistake (as we all do) or an error in judgement, admit it honestly and try to offer options.
+- Invest in your knowledge portfolio. Your biggest asset is your knowledge. Its an expiring asset which goes out of date with new technological advancements.
+- Don’t shirk from responsibility. Rejoice in accepting challenges and making our expertise well known. We do a job we can be proud of.
+
+## The Art of Effective Communication
+The best ideas are sterile unless you can communicate it with other people.
+- Know what you want to say. Write an outline, evaluate whether it conveys what you want to say, and refine it iteratively.
+- Know your audience. Understand their needs, interests, and capabilities.
+	- What do you want them to learn?
+	- What is their interest in what you want to say?
+	- How sophisticated are they?
+	- How much detail do they want?
+	- Whom do you want to own the information?
+	- How can you motivate them to listen to you?
+- Choose the right moment. Consider the timing and context where the person you are speaking to would likely be more receptive to what you want to say.
+	- Sometimes all it takes is a simple question, “Is this a good time to talk about…?”
+- Present your ideas to look good.
+- Involve your audience with early drafts of your document to get their feedback.
+- Always get back to people even if the response is simply to say you will get back to them later. Keeping people informed makes them far more forgiving of the occasional slip than keeping them in the dark.
+
+For documentation:
+- Put a date stamp or version number if necessary so reader knows what is up to date. Documentation can become out of date as soon as its printed.
+- Create and maintain a project glossary that defines all the specific terms and jargon used in a project.
+
+## Pragmatic Programming
+### Broken Window Theory
+Picture a public building. All it takes is a single broken window to initiate a decline welcoming further damage, disorder and apathy towards it.
+
+Similarly, we need to prevent software rot by not leaving “broken windows” (bad designs, wrong decisions, or poor code). Fix it, document it, or leave a comment in the code.
+
+We also need to instil this as part of team culture. Even the most diligent developer can lose enthusiasm to maintain code quality if the rest of the team is apathetic towards it.
+
+### Don’t Repeat Yourself (DRY)
+- Anything expressed in multiple places must be maintained in multiple places.
+- Write self-documenting code and minimise comments.
+	- Every change in code requires an accompanying change in the comments.
+	- Bad code requires lots of comments.
+	- Reserve comments for higher level explanations discussing why something is done. The code should already show how it is done.
+
+### Build Orthoganal Systems
+- Design components that are independent with a single, well-defined purpose.
+	- Increases productivity - promotes reusable components, localized changes reduce development and testing time, easily extensible codebase.
+	- Reduces risk - diseased sections of code are isolated, likely to be better tested.
+- Use layering. Each layer only uses the abstractions provided by the layers below it.
+- Write shy code - modules which don’t reveal anything unnecessary to other modules and don’t rely on other modules’ implementations. Always try to get objects to perform services on our behalf rather than accessing the implementation directly.
+- Write lazy code. Be strict in what you will accept before you begin and promise as little as possible in return.
+- Write flexible code. Software requirements can change any day, so your code must be adaptable for contingencies which may arise.
+- Write less code where possible. Additional code opens up the possibility of introducing new bugs.
+- Drive the application via configuration as much as possible. Program for the general case, and put the specifics somewhere else outside the compiled code base. This allows you to customize the application without recompiling it.
+- Use events to communicate between independent modules.
+- Minimise coupling between event streams.
+
+### Handling System Errors
+- If something can’t happen, use assertions to ensure that it won’t. Don’t use assertions in place of real error handling. Assertions just check for things that shouldn’t happen.
+- Use exceptions for exceptional problems.
+
+### Testing
+- Design your software by contract and write tests to ensure a given unit honours its contract.
+	- A correct program is one that does no more and no less than it claims to do. You need to understand the preconditions, post conditions and class invariants.
+	- We want to validate that the code meets its contract and the contract means what we think it means.
+- Test state coverage, not code coverage. Even if your tests cover all lines of code it doesn’t mean that it covers every state/boundary/edge case.
+- Testing is as much of a cultural challenge as it is a technical one.
+- Be driven to find bugs now so we don’t encounter them later. We don’t want to be a developer who tests gently and is subconsciously avoiding weak spots.
+- If a bug occurs, you need to add a new test to trap it next time. It should be the last time you see this bug again.
+
+### Design for Concurrency
+Once your architecture handles concurrency, it makes it easier to be flexible with scaling the application or meeting performance requirements when the time comes.
+- Design your software by contract so that there are no surprises.
+- Avoid maintaining implicit state between calls. Your code must be thread-safe and present a consistent state.
+- Minimise use of global variables.
+
+### Always Be Critical Of Your Code
+- It is easy to start going on autopilot during implementation. Constantly review what you are writing and check for potential problems.
+- Avoid programming by coincidence - relying on luck and accidental successes - in favour of programming deliberately. Sometimes you don’t know why your code works. You end up relying on undocumented error or boundary conditions and a real issue is bound to occur.
+- Don’t rely on wizard code that you don’t understand e.g. external libraries.
+- Don’t let existing code dictate future code and be ready to refactor. The asumption here is that the impact on the project schedule will be less than the cost of not making the change.
+- Be pragmatic about choosing appropriate algorithms. The fastest one is not always the best for the job. Given a small input set, a straightforward insertion sort will perform just as well as a quicksort and will take you less time to write and debug.
+- Variable names should be meaningful and not misleading.
+- Shortcuts make for long delays. You may save a few seconds now but at the potential loss of hours later for refactoring.
+
+### Approaching Debugging
+- Fix the problem, don’t blame anyone and don’t panic.
+- Resist the short-term urge to fix just the symptoms you see. It is more likely the actual fault may be several steps removed from what you are observing.
+- A useful mindset is understanding that it is much more likely for a bug to be caused by the application code rather than the underlying system or library used. So assess the code first to either fix the problem or eliminate it as the root cause.
+- Don’t gloss over a piece of code involved in the bug because you “know” it works. Prove it, document it, and test it.
+
+### Approaching Refactoring
+- Refactor early, refactor often. Think of code that needs refactoring as a growth. You can take it out now while its small or you could wait while it grows and spreads.
+- Keep track of things that need to be refactored. If you can’t refactor something immediately, make sure that it gets placed on the schedule.
+- Don’t refactor and add functionality at the same time.
+- Make sure you have good tests before you begin refactoring to know if you have broken anything.
+- Take short, deliberate steps rather than changing significant portions at a time.
+
+### The Art of Managing Requirements
+- Create ‘good enough’ software for your users, future maintainers, and your own peace of mind. You need to know when to stop over-engineering just as an artist needs to know when a painting is finished.
+	- Have conversations with your users/stakeholders to clarify what ‘good enough’ means. The scope and quality of the system should be documented as part of its requirements.
+- Always remember the bigger picture of why you are doing something.
+- Estimate to avoid surprises.
+	- Ask yourself if they are looking for high accuracy or a ballpark figure.
+	- Use bigger units to convey less precise estimates. For example, 5 days implies a more exact estimate than 1 week.
+	- Improve on your estimation skills by reflecting on why past estimates were not accurate.
+	- If asked to provide an estimate, say “I’ll get back to you”. You will be able to get better results slowing down.
+- Don’t just gather requirements - dig for them. Requirements are normally buried deep beneath layers of assumptions, misconceptions, and politics.
+- Separate business policies (which can change at any time) from requirements. For example, there is a difference between the requirements “only an employee’s supervisors may view the employee’s records” versus “only authorized users may access an employee record”. The developer will design for each of these differently (the latter is better and more flexible).
+- Your development has to solve their business problem, not just meet their stated requirements. Understand why users do a particular thing. A simple technique of doing this is to become a user, or work with them to think like a user.
+- Good requirements are abstract and not too specific. Requirements are not the architecture, design or implementation. They define a need.
+	- Its naive to assume that a specification or document will ever capture every detail and nuance of a system or its requirement.
+	- A design that leaves the coder no room for interpretation is also dangerous because often it is only during coding where certain options become apparent.
+- Gently exceed your users’ expectations. In reality, the success of a project is measured by how well it meets the expectations of it users, and not by how correctly specifications were implemented.
+
+### Productivity Tips
+- Use prototypes to learn. Remember that the value is in the lessons learned and not necessarily in the quality of the code produced. Shortly after you will know if you feel you are wasting time on an approach or not.
+- Pick a powerful editor and learn it well. Try to accomplish any given task in as few keystrokes as possible.
+- Automate as much as you can.
+- Make use of code generators - code that writes code for you.
+- Create templates of repeated work.
+- If you get stuck on a problem, ask yourself the following questions:
+	- Is there an easier way?
+	- Are you trying to solve the right problem, or have you been distracted by a peripheral technicality?
+	- Why is this thing a problem?
+	- What is it that’s making this so hard to solve?
+	- Does it have to be done this way?
+	- Does it have to be done at all?
+
+### Pragmatic Teams
+- Build orthogonal teams. Structure teams around particular functionalities which have clear responsibilities and minimal overlap, rather than based on job functions.
+- Make sure everyone actively monitors the environment and project for changes. Like a frog unaware that it is in a pot of water gradually increasing temperature, it can be difficult to keep an eye on your overall environment in the heat of project development.
+- A simple marketing trick that helps teams communicate as one is to generate a team brand. When you start a project, come up with a name for it, a zany logo, and use your team’s name liberally when talking with people. It sounds silly but it gives your team an identity to build on and the world something memorable to associate with your work.
+
+
+
