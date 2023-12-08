@@ -41,7 +41,7 @@ const CategoryFilter = () => {
 
   return (
     <div>
-      <h4 className='mb-3 font-subtitle font-medium tracking-wide text-neutral-100'>
+      <h4 className='mb-3 font-subtitle font-medium tracking-wide text-neutral-300'>
         {'// CATEGORIES'}{' '}
       </h4>
       <ul className='flex flex-col gap-y-1'>{categoryFilters}</ul>

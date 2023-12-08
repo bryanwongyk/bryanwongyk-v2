@@ -50,7 +50,7 @@ export default function BlogPage({
               <p className='text-md text-neutral-600'>{post.summary}</p>
               <span className='mt-1 flex items-center'>
                 <p className='font-subtitle text-sm text-neutral-400'>
-                  {formatDate(post.publishedAt)}
+                  {formatDate(post.publishedAt).toUpperCase()}
                 </p>
                 <p className='mx-[8px] text-neutral-600'>·</p>
                 <Suspense fallback={<p className='h-5' />}>

@@ -1,6 +1,7 @@
 import '../styles/global.css';
 import { IBM_Plex_Mono } from '@next/font/google';
 import { Metadata } from 'next';
+import GoogleAnalytics from './components/GoogleAnalytics/GoogleAnalytics';
 
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin'],
@@ -48,7 +49,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' className={`h-full font-sans ${ibmPlexMono.variable}`}>
-      <body> {children}</body>
+      <body>
+        <GoogleAnalytics />
+        {children}
+      </body>
     </html>
   );
 }

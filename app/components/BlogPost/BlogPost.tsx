@@ -52,7 +52,7 @@ export function BlogPost({ code }: { code: string }) {
   const Component = useMDXComponent(code);
 
   return (
-    <article className='prose'>
+    <article className='prose max-w-full'>
       <Component components={components} />
     </article>
   );

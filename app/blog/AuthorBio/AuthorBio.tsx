@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const AuthorBio = () => (
   <div className='mb-8'>
-    <h4 className='mb-4 font-subtitle font-medium tracking-wide text-neutral-100'>
+    <h4 className='mb-4 font-subtitle font-medium tracking-wide text-neutral-300'>
       {'// ABOUT ME'}{' '}
     </h4>
     <Image

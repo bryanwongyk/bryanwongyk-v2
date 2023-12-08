@@ -15,12 +15,12 @@ const BlogPageLayout = ({ children }: { children: React.ReactNode }) => {
       {breakpoint == null ? null : (
         <div
           id='outer-container'
-          className='mx-auto max-w-7xl sm:px-[16px] sm:pt-[96px] lg:px-[48px]'
+          className='mx-auto max-w-[88rem] sm:px-[16px] sm:pt-[96px] lg:px-[48px]'
         >
           {breakpoint == 'mobile' ? <MobileNavBar /> : <NavBar />}
           <div
             id='page-wrap'
-            className='mt-[8px] flex min-h-[calc(100vh-20vh)] flex-col gap-y-4 sm:ml-[200px] lg:ml-[226px] xl:grid xl:grid-cols-[78%_2%_20%]'
+            className='mt-[8px] flex min-h-[calc(100vh-20vh)] flex-col gap-y-4 sm:ml-[200px] lg:ml-[280px] xl:grid xl:grid-cols-[75%_5%_20%]'
           >
             <MobileTextContainer additionalClassNames={'mb-[64px]'}>
               {children}

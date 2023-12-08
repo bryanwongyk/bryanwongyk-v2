@@ -76,7 +76,7 @@ const NavBarLinks = () => {
   return (
     <ul className='flex flex-col gap-y-6'>
       {navigation.map((item) => (
-        <li key={item.name} className='hover:-translate-y-[1px]'>
+        <li key={item.name} className='tracking-wide hover:-translate-y-[1px]'>
           <NavigationLink
             key={item.href}
             title={item.name}

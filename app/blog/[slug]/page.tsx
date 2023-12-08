@@ -93,12 +93,13 @@ const Blog: FC<BlogProps> = ({ params }) => {
             },
           ]}
         />
-        <h1 className='mb-4 mt-6 inline-block text-2xl font-semibold tracking-tighter'>
+        <h1 className='mb-4 mt-8 inline-block text-4xl font-semibold leading-snug tracking-tighter'>
           {post.title}
         </h1>
-        <div className='mb-8 flex max-w-2xl items-center text-sm'>
+        <h4 className='mb-6 font-semibold tracking-tight'>{post.summary}</h4>
+        <div className='mb-12 flex max-w-2xl items-center text-sm'>
           <p className='font-subtitle text-sm text-neutral-400'>
-            {formatDateWithTimeAgo(post.publishedAt)}
+            {formatDateWithTimeAgo(post.publishedAt).toUpperCase()}
           </p>
           <p className='mx-[8px] text-neutral-600'>·</p>
           <Suspense fallback={<p className='h-5' />}>
