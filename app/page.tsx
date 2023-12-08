@@ -34,8 +34,8 @@ export default function Home() {
           <div>
             <MobileTextContainer>
               <h2 className='mb-6 w-full pb-4 text-2xl font-bold tracking-tight'>
-                Welcome to my digital space where I document and share what I'm
-                working on
+                Welcome to my digital space where I document and share what
+                I&apos;m working on
               </h2>
             </MobileTextContainer>
           </div>
