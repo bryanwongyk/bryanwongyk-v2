@@ -11,11 +11,6 @@ const Icon = tw.span`
   pr-[8px]
 `;
 
-export const metadata: Metadata = {
-  title: 'Blog',
-  description: 'Insights into engineering, business and life.',
-};
-
 export default function Home() {
   return (
     <main>
