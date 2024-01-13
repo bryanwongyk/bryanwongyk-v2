@@ -22,15 +22,17 @@ const BlogPageLayout = ({ children }: { children: React.ReactNode }) => {
             id='page-wrap'
             className='mt-[8px] flex min-h-[calc(100vh-20vh)] flex-col gap-y-4 sm:ml-[200px] lg:ml-[280px] xl:grid xl:grid-cols-[75%_5%_20%]'
           >
-            <MobileTextContainer additionalClassNames={'mb-[64px]'}>
+            <MobileTextContainer additionalClassNames={'mb-[16px]'}>
               {children}
             </MobileTextContainer>
             <div />
             <section>
-              <div className='mb-[16px] rounded-2xl bg-neutral-900 px-[32px] pb-[32px] pt-[16px] xl:mx-auto xl:w-[230px]'>
-                <AuthorBio />
-                <CategoryFilter />
-              </div>
+              <MobileTextContainer>
+                <div className='mb-[16px] rounded-2xl pb-[32px] xl:mx-auto xl:w-[230px] xl:px-[32px]'>
+                  <AuthorBio />
+                  <CategoryFilter />
+                </div>
+              </MobileTextContainer>
             </section>
           </div>
         </div>

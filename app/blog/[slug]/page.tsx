@@ -58,8 +58,7 @@ export const generateMetadata = async ({
 };
 
 const Views = async ({ slug }: { slug: string }) => {
-  const views = await postViewsRepository.getAllViews();
-  return <ViewCounter allViews={views} slug={slug} trackView />;
+  return <ViewCounter slug={slug} trackView />;
 };
 
 const Blog: FC<BlogProps> = ({ params }) => {
@@ -93,11 +92,11 @@ const Blog: FC<BlogProps> = ({ params }) => {
             },
           ]}
         />
-        <h1 className='mb-4 mt-8 inline-block text-4xl font-semibold leading-snug tracking-tighter'>
+        <h1 className='mb-4 mt-6 inline-block text-4xl font-semibold leading-snug tracking-tighter'>
           {post.title}
         </h1>
         <h4 className='mb-6 font-semibold tracking-tight'>{post.summary}</h4>
-        <div className='mb-12 flex max-w-2xl items-center text-sm'>
+        <div className='mb-8 flex max-w-2xl items-center text-sm'>
           <p className='font-subtitle text-sm text-neutral-400'>
             {formatDateWithTimeAgo(post.publishedAt).toUpperCase()}
           </p>

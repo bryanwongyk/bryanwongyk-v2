@@ -13,8 +13,7 @@ export const metadata: Metadata = {
 };
 
 const Views = async ({ slug }: { slug: string }) => {
-  const views = await postViewsRepository.getAllViews();
-  return <ViewCounter allViews={views} slug={slug} trackView={false} />;
+  return <ViewCounter slug={slug} trackView={false} />;
 };
 
 export default function BlogPage({
@@ -25,7 +24,7 @@ export default function BlogPage({
   const category = searchParams.category;
   return (
     <BlogPageLayout>
-      <h1 className='text-md mb-6 inline-block bg-cyberpunkYellow-300 px-2 font-display font-bold tracking-wide text-neutral-600'>
+      <h1 className='mb-6 inline-block font-display text-2xl font-bold tracking-wide text-neutral-600'>
         BLOG
       </h1>
       {allBlogs
@@ -40,7 +39,7 @@ export default function BlogPage({
         .map((post) => (
           <Link
             key={post.slug}
-            className='group mb-8 inline-block flex flex-col space-y-1 hover:-translate-y-[1px]'
+            className='group mb-8 inline-block flex flex-col space-y-1 transition-all hover:-translate-y-[1px]'
             href={`/blog/${post.slug}`}
           >
             <div className='flex w-full flex-col tracking-tight'>

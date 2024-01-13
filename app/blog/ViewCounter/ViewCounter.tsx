@@ -4,16 +4,16 @@ import { FC, useEffect, useState } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { RPC_INCREMENT_POST_VIEWS } from '../../repository/schema';
 import { PostView } from '../../repository/entities/PostView';
+import postViewsRepository from '../../repository/PostViewsRepository';
 
 interface ViewCounterProps {
   slug: string;
-  allViews: PostView[];
   trackView?: boolean;
 }
 
-const ViewCounter: FC<ViewCounterProps> = ({ slug, allViews, trackView }) => {
+const ViewCounter: FC<ViewCounterProps> = ({ slug, trackView }) => {
   const supabase = createClientComponentClient();
-  const [viewCount, setViewCount] = useState<number | undefined>(undefined);
+  const [viewCount, setViewCount] = useState<number | undefined>();
 
   useEffect(() => {
     if (trackView) {
@@ -31,8 +31,14 @@ const ViewCounter: FC<ViewCounterProps> = ({ slug, allViews, trackView }) => {
         setViewCount(res);
       });
     } else {
-      const slugStats = allViews && allViews.find((view) => view.slug === slug);
-      setViewCount(slugStats?.views_count || 0);
+      const initViews = async () => {
+        return await postViewsRepository.getAllViews();
+      };
+      initViews().then((allViews) => {
+        const slugStats =
+          allViews && allViews.find((view) => view.slug === slug);
+        setViewCount(slugStats?.views_count || 0);
+      });
     }
   }, []);
 

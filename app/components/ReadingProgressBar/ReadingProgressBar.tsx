@@ -24,7 +24,7 @@ const ReadingProgressBar = () => {
 
   return (
     <div
-      className='fixed left-0 top-0 z-50 h-[6px] border-b-[1px] border-neutral-400 bg-cyberpunkYellow-400 transition-all'
+      className='fixed left-0 top-0 z-50 h-[6px] bg-primary-400 transition-all'
       style={{ width: `${scrollPercentage}%` }}
     />
   );

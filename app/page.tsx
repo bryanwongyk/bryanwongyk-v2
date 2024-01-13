@@ -1,25 +1,15 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
-import PageLayout from './containers/PageLayout/PageLayout';
-import MobileTextContainer from './containers/MobileTextContainer/MobileTextContainer';
-import Link from 'next/link';
 import '../styles/global.css';
 import tw from 'tailwind-styled-components';
-import ExternalLink from './components/ExternalLink/ExternalLink';
+import Logo from './components/Logo/Logo';
+import NavBarLinks from './components/NavBar/NavBarLinks/NavBarLinks';
 
-const UnorderedList = tw.ul`
-  ml-[32px]
-`;
 const ListItem = tw.li`
-  list-disc
+  grid grid-cols-[10%_90%]
 `;
-const SubHeading = tw.h4`
-  text-md mb-4 tracking-wide text-neutral-500
-`;
-const SubHeadingIcon = tw.span`
+const Icon = tw.span`
   pr-[8px]
 `;
-const Paragraph = tw.p`ml-[8px]`;
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -28,87 +18,31 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <PageLayout>
-      <div className='mt-[4px]'>
-        <div className='w-full'>
-          <div>
-            <MobileTextContainer>
-              <h2 className='mb-6 w-full pb-4 text-2xl font-bold tracking-tight'>
-                Welcome to my digital space where I document and share what
-                I&apos;m working on
-              </h2>
-            </MobileTextContainer>
-          </div>
-        </div>
-        <div>
-          <div className='flex items-center'>
-            <Image
-              src='/headshots/headshot-2.jpg'
-              width={500}
-              height={500}
-              alt='Bryan'
-              className='z-10 border-2 border-black'
-            />
-          </div>
-        </div>
-        <div className='mb-10 mt-6 gap-x-12'>
-          <div>
-            <MobileTextContainer>
-              <div className='flex flex-col gap-y-12'>
-                <div>
-                  <SubHeading>👨🏻‍💻 WORKING ON</SubHeading>
-                  <UnorderedList>
-                    <ListItem>
-                      {'Building back-end financial infrastructure @'}{' '}
-                      <ExternalLink href='https://www.airwallex.com/au'>
-                        Airwallex
-                      </ExternalLink>
-                    </ListItem>
-                    <ListItem>
-                      Writing about what I learn{' '}
-                      <Link href='/blog' className='underline'>
-                        on my blog
-                      </Link>
-                    </ListItem>
-                    <ListItem>
-                      Taking a temporary break from building projects in my
-                      spare time
-                    </ListItem>
-                  </UnorderedList>
-                </div>
-                <div>
-                  <SubHeading>
-                    <SubHeadingIcon>🌱</SubHeadingIcon> LEARNING ABOUT
-                  </SubHeading>
-                  <Paragraph>How to become a killer engineer</Paragraph>
-                </div>
-                <div>
-                  <SubHeading>
-                    <SubHeadingIcon>🎧</SubHeadingIcon> HOBBIES
-                  </SubHeading>
-                  <UnorderedList>
-                    <ListItem>Going to the gym</ListItem>
-                    <ListItem>
-                      Listening to music and dabbling in making it once every
-                      blue moon
-                    </ListItem>
-                    <ListItem>
-                      Admiring great food, story-telling and art - everything
-                      that make us human
-                    </ListItem>
-                  </UnorderedList>
-                </div>
-                <div>
-                  <SubHeading>
-                    <SubHeadingIcon>📍</SubHeadingIcon> LIVING IN
-                  </SubHeading>
-                  <Paragraph>Sydney, AU (originally from Melbourne)</Paragraph>
-                </div>
-              </div>
-            </MobileTextContainer>
+    <main>
+      <div className='flex h-screen w-screen flex-col items-center justify-center overflow-hidden'>
+        <div className='animate-glow hidden h-px w-screen animate-fade-left from-neutral-300/0 via-neutral-300/50 to-neutral-300/0 md:block' />
+        <h1 className='text-edge-outline z-10 animate-title cursor-default whitespace-nowrap bg-clip-text font-display text-4xl text-transparent duration-1000'>
+          <Logo />
+        </h1>
+
+        <div className='animate-glow hidden h-px w-screen animate-fade-right from-neutral-300/0 via-neutral-300/50 to-neutral-300/0 md:block' />
+        <div className='my-6 animate-fade-in'>
+          <ul className='text-md flex flex-col gap-y-2 text-neutral-500'>
+            <ListItem>
+              <Icon>👨🏻‍💻</Icon>Software Engineer @ Airwallex
+            </ListItem>
+            <ListItem>
+              <Icon>✍🏻</Icon> Writing about what I learn
+            </ListItem>
+            <ListItem>
+              <Icon>📍</Icon>Based in Sydney, AU
+            </ListItem>
+          </ul>
+          <div className='mt-8 flex flex-col gap-y-4'>
+            <NavBarLinks />
           </div>
         </div>
       </div>
-    </PageLayout>
+    </main>
   );
 }

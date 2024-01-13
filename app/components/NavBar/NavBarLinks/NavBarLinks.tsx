@@ -8,18 +8,18 @@ const navigation = [
     subtitle: 'Engineering, business and personal insights',
     internal: true,
   },
-  {
-    name: 'Art',
-    href: 'https://www.instagram.com/b2uyk/',
-    subtitle: 'View my digital art',
-    internal: false,
-  },
-  {
-    name: 'Music',
-    href: 'https://soundcloud.com/bwyk/',
-    subtitle: 'View my electronic music',
-    internal: false,
-  },
+  // {
+  //   name: 'Art',
+  //   href: 'https://www.instagram.com/b2uyk/',
+  //   subtitle: 'View my digital art',
+  //   internal: false,
+  // },
+  // {
+  //   name: 'Music',
+  //   href: 'https://soundcloud.com/bwyk/',
+  //   subtitle: 'View my electronic music',
+  //   internal: false,
+  // },
 ];
 
 interface NavigationLinkProps {
@@ -27,6 +27,7 @@ interface NavigationLinkProps {
   href: string;
   subtitle: string;
   internal?: boolean;
+  alternateColor?: boolean;
 }
 
 const NavigationLink: FC<NavigationLinkProps> = ({
@@ -34,10 +35,15 @@ const NavigationLink: FC<NavigationLinkProps> = ({
   href,
   subtitle,
   internal = false,
+  alternateColor = false,
 }) => {
   const content = (
     <>
-      <dt className='mb-1 flex text-sm font-bold text-neutral-100 sm:text-neutral-600'>
+      <dt
+        className={`mb-1 flex text-sm font-bold ${
+          alternateColor ? 'text-neutral-100' : 'text-neutral-600'
+        }`}
+      >
         {title.toUpperCase()}
         <span className='relative ml-[8px] flex items-center justify-center'>
           <svg
@@ -56,7 +62,11 @@ const NavigationLink: FC<NavigationLinkProps> = ({
           </svg>
         </span>
       </dt>
-      <dd className='font-subtitle text-xs tracking-tight text-neutral-100 sm:text-neutral-600'>
+      <dd
+        className={`font-subtitle text-xs tracking-tight ${
+          alternateColor ? 'text-neutral-100' : 'text-neutral-600'
+        }`}
+      >
         {subtitle}
       </dd>
     </>
@@ -72,17 +82,25 @@ const NavigationLink: FC<NavigationLinkProps> = ({
   );
 };
 
-const NavBarLinks = () => {
+interface NavBarLinksProps {
+  alternateColor?: boolean;
+}
+
+const NavBarLinks: FC<NavBarLinksProps> = ({ alternateColor = false }) => {
   return (
     <ul className='flex flex-col gap-y-6'>
       {navigation.map((item) => (
-        <li key={item.name} className='tracking-wide hover:-translate-y-[1px]'>
+        <li
+          key={item.name}
+          className='tracking-wide transition-all hover:-translate-y-[1px]'
+        >
           <NavigationLink
             key={item.href}
             title={item.name}
             href={item.href}
             subtitle={item.subtitle}
             internal={item.internal}
+            alternateColor={alternateColor}
           />
         </li>
       ))}

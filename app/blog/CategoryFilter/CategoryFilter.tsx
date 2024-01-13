@@ -26,11 +26,11 @@ const CategoryFilter = () => {
   const categoryFilters = Object.values(PostTag).map((tag) => (
     <li
       key={tag}
-      className={` cursor-pointer hover:-translate-y-[1px] ${
+      className={`cursor-pointer text-sm transition-all hover:-translate-y-[1px] ${
         pathName == '/blog' &&
         (currentCategory == tag ||
           (!currentCategory && tag == PostTag.All.toString()))
-          ? 'text-neutral-300'
+          ? 'text-primary-600'
           : 'text-neutral-500'
       }`}
       onClick={() => handleCategoryClick(tag)}
@@ -41,10 +41,10 @@ const CategoryFilter = () => {
 
   return (
     <div>
-      <h4 className='mb-3 font-subtitle font-medium tracking-wide text-neutral-300'>
-        {'// CATEGORIES'}{' '}
+      <h4 className='mb-2 font-display tracking-wide text-neutral-600'>
+        {'CATEGORIES'}{' '}
       </h4>
-      <ul className='flex flex-col gap-y-1'>{categoryFilters}</ul>
+      <ul className='flex flex-col gap-y-2'>{categoryFilters}</ul>
     </div>
   );
 };

@@ -27,7 +27,7 @@ const RoundedImage = (props: any) => {
 };
 
 const PostHeader = (props: any) => {
-  return <h1 className='bg-cyberpunkYellow-300' {...props} />;
+  return <h1 className='bg-primary-300' {...props} />;
 };
 
 const Callout = (props: any) => {

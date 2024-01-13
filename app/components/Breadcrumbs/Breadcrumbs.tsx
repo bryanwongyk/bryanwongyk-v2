@@ -12,7 +12,7 @@ interface BreadcrumbsProps {
 
 const Breadcrumbs: FC<BreadcrumbsProps> = ({ pages }) => {
   return (
-    <nav className='mb-2 flex font-subtitle' aria-label='Breadcrumb'>
+    <nav className='flex font-subtitle' aria-label='Breadcrumb'>
       <ol role='list' className='flex items-center space-x-4'>
         {pages.map((page, index) => (
           <li key={page.name}>
