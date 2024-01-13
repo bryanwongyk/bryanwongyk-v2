@@ -1,4 +1,4 @@
-CREATE TABLE post_views (
+CREATE TABLE IF NOT EXISTS post_views (
     slug TEXT PRIMARY KEY,
     views_count BIGINT DEFAULT 0,
     last_updated TIMESTAMP DEFAULT statement_timestamp()
