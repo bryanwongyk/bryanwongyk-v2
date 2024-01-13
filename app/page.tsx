@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import '../styles/global.css';
 import tw from 'tailwind-styled-components';
 import Logo from './components/Logo/Logo';
