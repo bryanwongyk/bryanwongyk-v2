@@ -6,7 +6,6 @@ import { FC, Suspense } from 'react';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import { formatDateWithTimeAgo } from '../util/formatBlogPostDate';
 import ViewCounter from '../ViewCounter/ViewCounter';
-import postViewsRepository from '../../repository/PostViewsRepository';
 import ReadingProgressBar from '../../components/ReadingProgressBar/ReadingProgressBar';
 import BlogPageLayout from '../../containers/BlogPageLayout/BlogPageLayout';
 

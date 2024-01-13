@@ -4,7 +4,6 @@ import { allBlogs } from 'contentlayer/generated';
 import { formatDate } from './util/formatBlogPostDate';
 import { Suspense } from 'react';
 import ViewCounter from './ViewCounter/ViewCounter';
-import postViewsRepository from '../repository/PostViewsRepository';
 import BlogPageLayout from '../containers/BlogPageLayout/BlogPageLayout';
 
 export const metadata: Metadata = {
