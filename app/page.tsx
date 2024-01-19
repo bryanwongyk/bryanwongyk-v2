@@ -20,8 +20,8 @@ export default function Home() {
         </h1>
 
         <div className='animate-glow hidden h-px w-screen animate-fade-right from-neutral-300/0 via-neutral-300/50 to-neutral-300/0 md:block' />
-        <div className='my-6 animate-fade-in'>
-          <ul className='text-md flex w-[400px] flex-col gap-y-2 text-neutral-500'>
+        <div className='mx-[24px] my-6 animate-fade-in sm:ml-[130px] sm:w-[400px]'>
+          <ul className='text-md flex flex-col gap-y-2 text-neutral-500'>
             <ListItem>
               <Icon>👨🏻‍💻</Icon>Software Engineer @ Airwallex
             </ListItem>
