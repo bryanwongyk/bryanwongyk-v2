@@ -1,36 +1,39 @@
 ---
-title: 'Performance and Load Testing A New Application'
-publishedAt: '2023-12-02'
-summary: 'My process performance and load testing a new service during a migration'
+title: 'Performance and Load Testing A New Service'
+publishedAt: '2024-01-26'
+summary: 'What I did and how I would approach it in future'
 tag: software-engineering
-isPublished: false
+isPublished: true
 ---
-Last year I worked on the replacement and migration of an application to a new one. This involved performance testing
-the new service to ensure that it had at least the same or better level of performance and stability as the existing one.
+Last year I worked on a project migrating and replacing a service with a newer one. One phase of this involved performance testing
+the new service to validate that it:
 
-Without this knowledge, we could have been replacing the old service with an even worse performing one!
+1. Had better performance and stability than the old service and;
+2. Could scale to handle increasing traffic in the future
 
-Performance testing is defined a means to "[determine how a system performs in terms of responsiveness and stability under a [reasonable] workload](https://en.wikipedia.org/wiki/Software_performance_testing)".
-A load test (or stress test) is just a variant of this at the upper limits by testing the system under extremely high loads.
+## What is performance testing?
+Performance testing is "[determining how a system performs in terms of responsiveness and stability under a [reasonable] workload](https://en.wikipedia.org/wiki/Software_performance_testing)".
+A load test (or stress test) is just a variant of this where the level of load simulated is higher towards the upper bound without breaking the system.
 
-It involves using a performance testing library to write tests that execute certain requests against
-the application at a load level we specify.
+It usually involves using a performance testing library to write tests that execute requests against
+the application. The load/traffic level can be configured through various parameters.
 
-Performance testing can be used for a variety of other reasons too, such as using it as a manual or automated sanity check to ensure new changes are stable.
+Performance testing can be used in other ways too. For example, it could be integrated as part of a CI/CD pipeline
+as an automated sanity check to ensure the system is still stable with any new changes being pushed.
 
-This was a new experience for me which I was able to learn a lot about (with lots of guidance from my team) and so I wanted to document
+This was a new experience which I was able to learn a lot about (with guidance from my mentors) and so I wanted to document
 the process I took.
 
 ## 1. Establishing the requirements
-Now that we'd established _why_ we wanted to do these tests, next we needed to establish how they would work.
+We had established _why_ we wanted to do these tests and so we needed to establish how they would work.
 
 The must-have requirements were that it could:
-- Be used to test against the service's different types of API protocols (e.g. JSON-RPC, gRPC) to get wide coverage
-- Be run in an environment as similar to production as possible (e.g. consider the specs and resources allocated to the application and database)
+- Be used to test against different types of API protocols for wider coverage
+- Be run in an environment as similar to production as possible - including checking the specs and resources allocated to the application and database are similar
 
-The nice-to-have requirements of the performance tests were:
-- To be able to spin up its own separate load testing environment so that it didn't impact an existing environment used by other people
-- To make it simple to configure and run e.g. via the GitLab job UI instead of directly via command line
+The stretch requirements of the performance tests were:
+- To be able to spin up its own separate test environment so that it didn't impact existing environments
+- To make it simple to configure and run e.g. via the GitLab job UI instead of needing to execute it via command line
 
 ## 2. Establish metrics to capture
 The primary metrics I wanted to measure aimed at performance were:
@@ -39,42 +42,48 @@ The primary metrics I wanted to measure aimed at performance were:
 3. Error rate
 
 The secondary metrics I also measured aimed at gauging stability were:
-1. Any incidental event throughput (e.g. Kafka) and downstream lag
+1. Any incidental event throughput (e.g. Kafka or other message queues) and downstream lag
 2. Application memory usage
 3. Database stability e.g. CPU utilisation, I/O, slow queries
 
 ## 3. Establish variables to test against
-There were certain dimensions I tested against to address certain risks. That means I tested each test scenario multiple times
-with these variables tuned differently but everything else remaining constant.
+There were certain dimensions I tested against to address possible risks. This means I ran each test scenario multiple times
+with these variables tuned differently whilst keeping all other variables constant.
 
-1. __Number of application pods running.__ The question to answer is - at what point does the database become the bottleneck as the application scales up? Testing against different configurations of this lets us know how the database would perform if the application is ever scaled down or up.
-2. __Number of accounts.__ If there is any contention (e.g. database locking) how is performance affected by the number of accounts being operated on concurrently?
+1. __Number of application pods running.__ At what point does the database become the bottleneck as the application scales up? Testing against different configurations of this lets us know how the database would perform if the application is ever scaled down or up.
+2. __Variables affecting concurrency.__ If there is any contention (e.g. database locking) how is performance affected by the number of resources (such as accounts) being operated on concurrently?
 
 ## 4. Establish test scenarios
 This took a bit of experimentation to understand what the best approach was, but in retrospect here are some different scenarios
-I would consider in the future:
-- Testing different APIs with different responsibilities (e.g. a read API, write API)
+I would consider getting coverage on in the future:
+- Testing different APIs with different responsibilities (e.g. are there differences in the performance across the read and write APIs?)
 - Testing different types of API protocols (e.g. does a JSON-RPC API perform differently compared to a REST or gRPC API?)
-- Testing different requests which model real requests a client might make with varying complexities (e.g. a request that would result in at least 1 very simple code flow, and at least another that would result in a very complex code flow)
+- Testing different requests which model real requests a client might make with varying complexities such as:
+    - A request that would result in a simple code flow and;
+    - A request that would result in a very complex code flow (especially if it has a lot of interactions with the database or other services, locking etc.)
 - Having test scenarios that deliberately invoke an unhappy path occasionally to see if the application can handle and recover from failure cases efficiently
 
 ## 5. Writing and executing the tests
-In my case I was using the Python library [Locust](https://locust.io/). When executing the tests the main parameters I had to configure were:
-1. Users: The maximum number of concurrent Locust users making requests. Each user would represent an individual executing thread in the API.
-2. Spawn rate: The rate of users spawned per second. This is the 'ramp-up' rate where spawning stops when it reaches the max. number of users we specified above.
-3. Run time: How long the tests run for.
+In my case I used the Python library [Locust](https://locust.io/). When executing the tests the main parameters I had to configure were:
+1. Users: The maximum number of concurrent Locust users making requests. Each user would represent an individual thread executing in the API
+2. Spawn rate: The rate of users spawned per second - this is the 'ramp-up' rate where spawning stops when it reaches the max. number of users specified above
+3. Run time: How long the tests run for
 
 Other performance testing libraries may have similar parameters.
 
 ## 6. Evaluating the results
-There are several questions we can ask ourselves:
+The questions to answer were:
 1. Do the results answer our original questions or hypotheses?
 2. Do the results help us assess the risks we seeked to address?
-3. Do the results make sense? In my case for example, one of my earlier tests showed throughput that was unusually high. It turned out that the way the database was configured in the environment I ran the tests in overinflated the application's performance.
-4. Seek explanations for any differences in results across test scenarios.
+3. Do the results make sense?
+    - For example, one of my earlier test runs showed unusually high throughput. It was found that the way the database was configured in that particular environment overinflated the application's performance.
+    - We can also look at the mathematical relationship between throughput and latency to sense-check the results
+4. Seek explanations for any differences in results across test scenarios
 
 
 ## 7. Presenting the results
-I would recommend not simply presenting the raw dataset. I found it was better to summarise the results for the given stakeholders including:
-1. Summarising key insights or trends clearly. It's important to address the implications across changed variables and different test scenarios.
-2. Highlighting any areas of concern
+I found it was beneficial to summarise the results so that its tailored to be digestible for the given stakeholders rather than presenting the raw datasets.
+Important information included:
+1. Summarising the key insights or trends clearly - it's important to address the implications across changed variables and different test scenarios
+2. Explaining the differences in results across scenarios
+3. Highlighting any areas of concern
