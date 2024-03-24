@@ -1,0 +1,109 @@
+---
+title: 'Reading Notes: Canva''s Engineering Blog'
+publishedAt: '2024-09-04'
+summary: 'Bite-sized summaries of some of their interesting backend-related articles'
+tag: software-engineering
+isPublished: true
+---
+
+In preparation for my move to Canva, I read through some of their engineering blog posts to understand some of the
+interesting work they've accomplished and get a feel for the world that I'll be stepping into.
+
+I've summarised my key takeaways of the following articles below:
+- [How Canva saves millions annually in Amazon S3 costs](https://www.canva.dev/blog/engineering/optimising-s3-savings/)
+- Search pipeline ([part 1]((https://www.canva.dev/blog/engineering/search-pipeline-part-i/)), [part 2](https://www.canva.dev/blog/engineering/search-pipeline-part-ii/))
+- [We Put Half a Million files in One git Repository, Here's What We Learned](https://www.canva.dev/blog/engineering/we-put-half-a-million-files-in-one-git-repository-heres-what-we-learned/)
+- [Relational Database Migration with AWS Database Migration Service (DMS)](https://www.canva.dev/blog/engineering/dms-aws-rds-migration/)
+- [Lessons learnt from building reactive microservices for Canva Live](https://www.canva.dev/blog/engineering/lessons-learnt-from-building-reactive-microservices-for-canva-live/)
+
+## 🤔 How Canva saves millions annually in Amazon S3 costs
+#### Summary
+They wanted to cut their storage costs by migrating their infrequently accessed data in other storage classes to the newly introduced [Glacier Instant Removal](https://aws.amazon.com/s3/storage-classes/glacier/instant-retrieval/) storage class.
+
+#### ELI5: AWS S3 Storage Classes
+[AWS S3](https://aws.amazon.com/s3/) provides object storage (i.e. a way to store files). There are different storage classes (i.e. types of storage) you can pick based on your use cases
+to optimise cost and performance. Factors to consider include:
+1. How much data you need to store
+2. How frequently you expect to access it
+3. How fast you need the retrieval time to be
+
+#### Key takeaways
+- **[Lifecycle policies](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) are useful for transitioning data into storage classes to match actual usage patterns.** The policies enforce given rules which allow data to transition between storage classes. For example, if data gets accessed most often in the
+first 30 days after it is uploaded then we can consider:
+    1. Initially storing that data into the Standard storage class
+    2. Setting a policy to transition that data after 30 days into another storage class that is more cost-effective for less frequent accesses
+- **It is useful to justify the significant upfront cost (millions of dollars) to transition data to the new storage class by plotting it against the future ongoing savings expected.**
+    1. What are the actual current data access patterns? For each storage class, how often do users access after they are uploaded?
+    2. For different object sizes, how long would it take to break even on the transition costs after migrating as opposed to continuing to keep the data in the same storage?
+
+## 🤔 Search Pipeline
+#### Summary
+They wanted to refactor their search architecture to be more scalable and maintainable with requirements including:
+- Building a more modular system which did not require the duplication of logic across each of their search systems
+- Embedding observability such as metrics, tracing and logging that captures all the state changes of a search request
+- Migrating the use of Solr to Elasticsearch
+
+### Key takeaways
+- **WET (Write Everything Twice) over DRY (Don't Repeat Yourself).** They tend to avoid DRY until something needs to be written more than twice. High quality abstractions are hard to write upfront and difficult to maintain as needs change.
+- **If possible, decouple service logic in a way that doesn't lock you into a particular technology.** In this case, their current integration relies on passing around a `SolrQuery` builder object which won't work with Elasticsearch.
+- **A user may build an expectation over time of how they think search should work based on their previous interactions.**
+- **How the system fetches data can be optimised by analysing how the user interacts with the search system.** For example, they found that most users stop interacting with results after position 240. So up to this position, the system prioritises the precision of results and relies on caching to optimise performance. For subsequent results, the system prioritises speed with more efficient search pipelines.
+- **The merits of building a componentised system.**
+    - Isolated components allow workflows to be executed in parallel, and components can be re-ordered/reused in different topologies.
+    - Stateless components allow computation to be distributed and moved flexibly as there are no side-effects that can mutate other components.
+    - Transient components means the system's robustness does not rely on them being durable.
+- **The idea of architecting a system like a 'directed acylic graph' (DAG).** Nodes have improved testability as we can sure there will be no loops in sequential execution or transitive side effects.
+- **The importance of considering fault tolerance through multiple means.**
+    - Retries on failing processes
+    - Deadlines on long-running processes
+    - Circuit breakers or failover solutions which can be used temporarily
+
+## 🤔 We Put Half a Million files in One git Repository, Here's What We Learned
+#### Summary
+Canva stores all their code in a monorepo (i.e. a single repository). As a result, standard git commands like `git status` can take many seconds.
+
+#### Key takeaways
+-  Optimisations have been made including:
+    - Reducing the amount of work git needs to do to find changes.
+        - Issue: By default, git scans *all* files every time a command is run.
+        - Optimisation: Capture changes as they happen instead.
+    - Ignore auto-generated files that cannot be deleted.
+        - Issue: git is spending resources tracking files that the engineer is not actually changing.
+        - Optimisation: Use `git sparse-checkout` to reduce the working tree from the entire monorepo to the subset of tracked files that the engineer is actually working on.
+    - Ignore pulling in unnecessary dependencies by using Bazel as the build system
+- They monitor git performance (including operations used and time taken to execute them) across the entire organisation by sending git trace outputs to an internal tool.
+
+#### Useful additional reading
+- [Advantages of monorepos](https://danluu.com/monorepo/)
+
+## 🤔 Relational Database Migration with AWS Database Migration Service (DMS)
+#### Summary
+They had a system handling template usage data which was becoming hard to scale - so they decided to split it up into smaller, independent services. This also meant splitting up the data in their original AWS RDS instance.
+
+#### Key takeaways
+- They shadowed request traffic to their new system using a message queue (AWS SQS)
+- For their point-in-time data migration, they used the AWS Database Migration tool. They also considered other options including:
+    1. Performing SQL dumps (commonly used to back up databases) to dump data into chunks and inserting the data into the target database in batches.
+    2. Copying all the data from the source database and then trimming it to become the final result. A reason this wasn't acceptable was that they wanted to downsize their database storage which could not happen if they needed to copy all the original data.
+    3. Using a background task to programmatically replicate the database row by row. They decided against it due to the effort required, and suggested it only made sense if the new service had a different schema requiring non-trivial data transformation.
+- They found unexpected performance issues while monitoring the target RDS instance during the migration process.
+    1. High IOPS revealed that the RDS instance was handling a lot of write operations. The CPU usage was also high suggesting it may have been busy with building indexes. This was fixed by dropping the indexes and re-building them after the migration process.
+    2. The lack of burst capacity required for building the indexes was fixed by upgrading the storage.
+- Their main takeaways from this process were to:
+    1. Load test early to make it easier to identify issues
+    2. Use monitoring tools and set up alerts to keep track of the migration process, infra. resource usage and performance issues
+
+## 🤔 Lessons learnt from building reactive microservices for Canva Live
+#### Summary
+They discussed how they built Canva Live (a presentation feature allowing the audience to ask live questions) with high scalability in mind.
+
+#### Key takeaways
+This article often delved into the technical details of how they used Redis as a datastore which is a technology I don't have much experience with - so I don't have any useful takeaways yet. This is something I intend to learn more about.
+
+## Conclusion
+That's it! Thanks for reading and I hope this post was useful for you.
+
+It definitely highlighted my need to brush up on AWS and Redis moving forward.
+
+If you're interested, I'm also looking forward to do deep dives on other engineering blogs in the future as I've found this to be an extremely useful exercise
+in seeing how other real organisations have solved complex problems.
